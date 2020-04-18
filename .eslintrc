@@ -1,0 +1,6 @@
+{
+  "extends": ["nando"],
+  "rules": {
+    "react/display-name": "off"
+  }
+}
