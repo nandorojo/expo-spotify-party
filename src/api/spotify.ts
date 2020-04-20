@@ -1,9 +1,24 @@
 import { Server } from './server'
 import { fuego } from './fuego'
+import * as AuthSession from 'expo-auth-session'
+import { Linking } from 'expo'
+import { Platform } from 'react-native'
 
 export class Spotify {
   static get authEndpoint() {
     return `${Server.endpoint}/spotifyAuth/${fuego.auth().currentUser.uid}`
+  }
+  static async createAuthEndpointAsync() {
+    // await startAsync({
+    //   returnUrl: getRedirectUrl()
+    // })
+    const redirectUri =
+      Platform.OS === 'web' ? AuthSession.getRedirectUrl() : Linking.makeUrl()
+    // const redirectUri = getRedirectUrl()
+    console.log('will request endpoint', { redirectUri })
+    return Server.post('createSpotifyAuthUrl', {
+      redirectUri,
+    })
   }
   static hasUserLinkedSpotify = async ({ uid }: { uid: string }) => {
     return new Promise(resolve => {

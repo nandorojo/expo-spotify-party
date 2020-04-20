@@ -12,7 +12,7 @@ type Props<T extends { routeName: string }> = {
 
 function Auth<T extends { routeName: string }>(props: Props<T>) {
   const { getParam } = useRouting()
-  const redirect = getParam<T>('redirect', props.redirect)
+  const redirectPartyId = getParam<T>('redirectPartyId')
   const authType = getParam<'sign in' | 'sign up' | undefined>('authType')
   const { navigate } = useRouting()
   useAuthStateChanged(async user => {
@@ -20,13 +20,18 @@ function Auth<T extends { routeName: string }>(props: Props<T>) {
     const me = await User.get()
     if (me.has_auth) {
       // all auth is complete
-      navigate(redirect)
+      navigate({
+        routeName: NavigationRoutes.party,
+        params: {
+          id: redirectPartyId,
+        },
+      })
     } else if (me.handle) {
       // has handle, but not spotify
       navigate({
         routeName: NavigationRoutes.spotifyAuth,
         params: {
-          redirect,
+          redirectPartyId,
         },
       })
     } else {
@@ -34,7 +39,7 @@ function Auth<T extends { routeName: string }>(props: Props<T>) {
       navigate({
         routeName: NavigationRoutes.onboarding,
         params: {
-          redirect,
+          redirectPartyId,
         },
       })
     }

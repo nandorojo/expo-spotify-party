@@ -39,16 +39,11 @@ const Party = () => {
         onPress={() =>
           navigate({
             routeName: NavigationRoutes.auth,
-            web: {
-              as: '/auth',
-            },
+            // web: {
+            //   as: '/auth',
+            // },
             params: {
-              redirect: {
-                routeName: 'party',
-                params: {
-                  id,
-                },
-              },
+              redirectPartyId: id,
             },
           })
         }

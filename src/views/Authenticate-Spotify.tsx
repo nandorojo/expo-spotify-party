@@ -2,28 +2,40 @@ import React from 'react'
 import { View, Button, Text } from 'react-native'
 import { useSpotifyAuth } from '../api/hooks/use-spotify-auth'
 import { useRouting } from 'expo-next-react-navigation'
+import { NavigationRoutes } from '../navigation/routes'
+import { useGetSpotifyAuthUrl } from '../api/hooks/use-get-spotify-auth-url'
+import { fuego } from '../api/fuego'
 
 type Props = {
-  onAuthenticationComplete: () => void
+  onAuthenticationComplete?: () => void
 }
 
-const AuthenticateSpotify = (props: Props) => {
-  const { onAuthenticationComplete } = props
-  const { authenticate, status } = useSpotifyAuth()
-  const { getParam, navigate } = useRouting()
-  const redirect = getParam<{ routeName: string }>('redirect')
+const AuthenticateSpotify = () => {
+  console.log('here')
+  const { result, loading } = useGetSpotifyAuthUrl()
+  const { authenticate, status } = useSpotifyAuth({ authUrl: result?.url })
+  // return null
+  // const { getParam, navigate } = useRouting()
+  // const redirectPartyId = getParam<string>('redirectPartyId')
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
-        title="Authenticate Spotify"
+        title={result?.url ? 'Authenticate Spotify' : 'Loading...'}
+        disabled={loading}
         onPress={async () => {
-          const {} = await authenticate()
-          if (redirect) {
-            navigate(redirect)
-          }
+          if (!result?.url) return fuego.auth().signOut()
+          const r = await authenticate()
+          // if (redirectPartyId) {
+          //   navigate({
+          //     routeName: NavigationRoutes.party,
+          //     params: {
+          //       id: redirectPartyId,
+          //     },
+          //   })
+          // }
         }}
       />
-      <Text>{status}</Text>
+      <Text>status: {status}</Text>
     </View>
   )
 }

@@ -23,16 +23,21 @@ const Text = styled.Text``
 
 const Onboarding = () => {
   const { getParam, navigate } = useRouting()
-  const redirect = getParam<{ routeName: string }>('redirect')
+  const redirectPartyId = getParam<string>('redirectPartyId')
   const { handle, setHandle, create, status } = useCreateUser({
     onSuccess: async () => {
       if ((await User.get()).has_auth) {
-        navigate(redirect)
+        navigate({
+          routeName: NavigationRoutes.party,
+          params: {
+            id: redirectPartyId,
+          },
+        })
       } else {
         navigate({
           routeName: NavigationRoutes.spotifyAuth,
           params: {
-            redirect,
+            redirectPartyId,
           },
         })
       }

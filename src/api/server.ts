@@ -1,10 +1,10 @@
 // conditional types for typescript help
 // https://artsy.github.io/blog/2018/11/21/conditional-types-in-typescript/
-// 😱fuck type script for the way this code looks
+// 😱f typescript for the way this code looks
 
 import { fuego } from './fuego'
 
-type ActionOptions = 'createUser'
+type ActionOptions = 'createUser' | 'createSpotifyAuthUrl'
 type ActionCreator<A extends ActionOptions> = { action: A }
 
 // See  https://artsy.github.io/blog/2018/11/21/conditional-types-in-typescript/
@@ -19,26 +19,33 @@ type CreateUser = ActionCreator<'createUser'> & {
   handle: string
 }
 
-type Req = CreateUser
+type CreateSpotifyAuthUrl = ActionCreator<'createSpotifyAuthUrl'> & {
+  redirectUri: string
+}
+
+type Req = CreateUser | CreateSpotifyAuthUrl
 
 type ResponseModel<Res = {}> = Res & {
   message?: string
   success: boolean
 }
 
-type Res<A extends ActionOptions> = A extends 'createUser'
+type Res<A extends ActionOptions> = A extends CreateUser['action']
   ? ResponseModel<{ uid: string }>
+  : A extends CreateSpotifyAuthUrl['action']
+  ? ResponseModel<{ url: string; has_auth?: boolean }>
   : ResponseModel
 
 export class Server {
-  static endpoint = 'https://spotify-dj-1.herokuapp.com/api'
+  static endpoint = 'https://spotify-dj-1.herokuapp.com'
+  static apiEndpoint = `${Server.endpoint}/api`
 
   static async post<A extends ActionOptions>(
     action: A,
     body: ExtractActionParameters<Req, A>
   ): Promise<Res<A>> {
     const token = await fuego.auth().currentUser?.getIdToken()
-    return fetch(Server.endpoint, {
+    return fetch(Server.apiEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
