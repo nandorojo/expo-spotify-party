@@ -35,3 +35,5 @@ web-report/
 # @end @expo/next-adapter
 
 src/packages
+
+.out

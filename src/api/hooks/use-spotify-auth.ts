@@ -6,11 +6,6 @@ import * as WebBrowser from 'expo-web-browser'
 import * as AuthSession from 'expo-auth-session'
 // import WebBrowser from '../../components/Browser'
 
-console.log('here ok??')
-if (Platform.OS === 'web' && process.browser) {
-  WebBrowser.maybeCompleteAuthSession()
-}
-
 type Props = {
   authUrl?: string
   alreadyAuthenticated?: boolean

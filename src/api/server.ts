@@ -45,6 +45,7 @@ export class Server {
     body: ExtractActionParameters<Req, A>
   ): Promise<Res<A>> {
     const token = await fuego.auth().currentUser?.getIdToken()
+    if (!token) console.warn('missing token for request')
     return fetch(Server.apiEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

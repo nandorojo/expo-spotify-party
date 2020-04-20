@@ -1,12 +1,11 @@
 import React, { ReactNode } from 'react'
-import { ThemeProvider } from 'styled-components/native'
 
 type Props = {
   children: ReactNode
 }
 
-const FuegoProvider = ({ children }: Props) => {
-  return <ThemeProvider>{children}</ThemeProvider>
+const Theme = ({ children }: Props) => {
+  return <>{children}</>
 }
 
-export default FuegoProvider
+export default Theme
