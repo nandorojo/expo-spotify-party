@@ -2238,6 +2238,11 @@
     wcwidth "^1.0.1"
     ws "^1.1.0"
 
+"@react-native-community/masked-view@0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.6.tgz#c7f2ac187c1f25aa8c30d11baa8f4398eca3bb84"
+  integrity sha512-PpMoeXwPUoldCRKDuSi+zK5rT+sJTW6ri6RdGPkSKRzU77Q1d9IaR0O5IKvBj0XSdL3p+dcOa05gk35aGDffBQ==
+
 "@react-navigation/core@^5.3.4":
   version "5.3.4"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.3.4.tgz#272eb48381c4db251f4dc5cd044db1606a551551"
@@ -2250,7 +2255,7 @@
     react-is "^16.13.0"
     use-subscription "^1.4.0"
 
-"@react-navigation/native@^5.0.0-alpha.29":
+"@react-navigation/native@^5.0.0-alpha.29", "@react-navigation/native@^5.1.6":
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.1.6.tgz#932ff1b5b8b9f051d8e5cd3b016d05badaa01898"
   integrity sha512-DLLSnh29AndrGjPrHJoAgObeO9TiyrGtrASl+SA3B4ksmz4dUV2t6vaRwHogn1kejvRd+1T8VD923d3K1rjy7w==
@@ -5640,20 +5645,20 @@ expo-location@~8.1.0:
   dependencies:
     invariant "^2.2.4"
 
-expo-navigation-core@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/expo-navigation-core/-/expo-navigation-core-0.3.1.tgz#804ad8b7086f5b41367baa787f63bec2d18c3774"
-  integrity sha512-X63mqomL1bINHRCQAM4sMivjzng2vW/HizQEJum+Km9tpDm5EfczcMCNyH467okmBOOLjizqNZrHmZlREAV2Ag==
+expo-navigation-core@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/expo-navigation-core/-/expo-navigation-core-0.3.2.tgz#cc0621a1838f6519c32f7f66ff5dfeb7501d2955"
+  integrity sha512-g5b2lU820L3nJrfdGH2wgW4J/HBWFADKtWCA2oTiCKL7G9LvZr4xlz3/pcji2zixKaMEWK1dtgwCATCssBU52A==
   dependencies:
     "@react-navigation/native" "^5.0.0-alpha.29"
     lodash "^4.17.15"
 
-expo-next-react-navigation@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/expo-next-react-navigation/-/expo-next-react-navigation-1.0.5.tgz#852537922b90d72e1e109e252538274f582dab2c"
-  integrity sha512-vCT+Nkjs9VxcMg4k1AkTbaoARVbGVDsFUsHlo/Om5g6XGn405dJwpVruQb2nZ/F2lhlqu/G/5Ii5U3W9EIUgtA==
+expo-next-react-navigation@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/expo-next-react-navigation/-/expo-next-react-navigation-1.1.3.tgz#7bb9562d74f42290fb3b05456c2850f76528fbf7"
+  integrity sha512-kacDNtejCqNPf4fgh83HoGoa0U9NFk+smx2u+wsJr7k14JVeVa4pc/2+Lp5xHck/jb71Ruoz1anmLdMIg91CaA==
   dependencies:
-    expo-navigation-core "^0.3.1"
+    expo-navigation-core "^0.3.2"
     lodash "^4.17.15"
     next "^9.1.5"
 
@@ -10179,10 +10184,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-doorman@^1.1.29:
-  version "1.1.29"
-  resolved "https://registry.yarnpkg.com/react-native-doorman/-/react-native-doorman-1.1.29.tgz#29729edb0b772523d9bb536540fdea3dcdc3ec9b"
-  integrity sha512-CZJ7e2Xp6IwrzfSALrAeMHg6q2wiiAnmQzpX5IYUlR6IQGVtLWPBeBB2X4nhNN0J2ZCshXu047sgz7ZPw7Guvw==
+react-native-doorman@^1.1.31:
+  version "1.1.31"
+  resolved "https://registry.yarnpkg.com/react-native-doorman/-/react-native-doorman-1.1.31.tgz#782eb5f261f4a38c44a308f3c87985d41fb86b0d"
+  integrity sha512-Yrm/99N7uY6Fa1/VybJ2AvRv3KveVbmyt7C7VcywMWa03p9wRNZfE9NCM0jOJQZZp/9vL6aMU4FXYyQe6lI1wg==
   dependencies:
     "@nandorojo/react-native-phone-input" "^0.2.8"
     expo-linear-gradient "^8.0.0"
@@ -10268,6 +10273,11 @@ react-native-redash@^10.0.1:
     normalize-svg-path "^1.0.1"
     parse-svg-path "^0.1.2"
     use-memo-one "^1.1.1"
+
+react-native-safe-area-context@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-0.7.3.tgz#ad6bd4abbabe195332c53810e4ce5851eb21aa2a"
+  integrity sha512-9Uqu1vlXPi+2cKW/CW6OnHxA76mWC4kF3wvlqzq4DY8hn37AeiXtLFs2WkxH4yXQRrnJdP6ivc65Lz+MqwRZAA==
 
 react-native-safe-area-view@^0.14.6:
   version "0.14.9"
@@ -12208,6 +12218,11 @@ use-subscription@^1.4.0:
   integrity sha512-7+IIwDG/4JICrWHL/Q/ZPK5yozEnvRm6vHImu0LKwQlmWGKeiF7mbAenLlK/cTNXrTtXHU/SFASQHzB6+oSJMQ==
   dependencies:
     object-assign "^4.1.1"
+
+use-timeout@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/use-timeout/-/use-timeout-1.1.0.tgz#622843678ff9e2c59a030b86baa36de0a8462f8a"
+  integrity sha512-1veqpjjjHvjQ7qcMrz72HnL+6WgsehNFnFbdKNsSGWa+GcbjXrPrfFiBj/wtzHBBB8h5WO4B3O7i54NT8RIr6w==
 
 use@^3.1.0:
   version "3.1.1"

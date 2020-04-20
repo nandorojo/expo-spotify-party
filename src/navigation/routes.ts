@@ -3,4 +3,6 @@ export const NavigationRoutes = {
   auth: 'auth',
   onboarding: 'onboarding',
   party: 'party',
+  dashboard: 'dashboard',
+  confirmPhone: 'confirmPhone',
 }

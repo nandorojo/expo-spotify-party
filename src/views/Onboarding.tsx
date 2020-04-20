@@ -49,6 +49,7 @@ const Onboarding = () => {
         value={handle}
         onChangeText={setHandle}
         placeholder="Custom handle"
+        onSubmitEditing={create}
       />
       <Text>{status}</Text>
       <Btn title="Create User" onPress={create} />

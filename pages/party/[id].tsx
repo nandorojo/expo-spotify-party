@@ -2,7 +2,10 @@ import React from 'react'
 import { NextPage } from 'next'
 import Page from '../../src/wrappers/Page'
 import dynamic from 'next/dynamic'
-const Party = dynamic(() => import('../../src/views/Party'))
+import LoadingScreen from '../../src/views/Loading-Screen'
+const Party = dynamic(() => import('../../src/views/Party'), {
+  loading: () => <LoadingScreen />,
+})
 
 type Props = { name: string; title: string }
 

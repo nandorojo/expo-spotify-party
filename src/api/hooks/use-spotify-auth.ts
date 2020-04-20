@@ -60,6 +60,7 @@ export const useSpotifyAuth = ({ authUrl, alreadyAuthenticated }: Props) => {
         //   returnUrl:
         //     Platform.OS === 'web' ? AuthSession.getRedirectUrl() : undefined,
         // })
+        return authSession
         console.log('autttthhh', { authSession })
         if (authSession.type === 'success') alert('Success!')
         // const authSession = await AuthSession.startAsync({
@@ -92,7 +93,7 @@ export const useSpotifyAuth = ({ authUrl, alreadyAuthenticated }: Props) => {
     } catch (err) {
       setStatus('error')
       console.error(err)
-      return { success: false }
+      // return { success: false }
     }
   }, [alreadyAuthenticated, authUrl])
   const isLoading = status === 'loading'
