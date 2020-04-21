@@ -6,7 +6,7 @@ import { useRouting } from 'expo-next-react-navigation'
 import { NavigationRoutes } from '../src/navigation/routes'
 // import * as WebBrowser from 'expo-web-browser'
 
-export default function App() {
+export default function Home() {
   const [user, signOut] = useMaybeDoormanUser()
   const { navigate } = useRouting()
   return (

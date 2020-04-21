@@ -1,18 +1,19 @@
 import React, { useCallback, useEffect } from 'react'
 import { useRouting } from 'expo-next-react-navigation'
 import dynamic from 'next/dynamic'
-import LoadingScreen from './Loading-Screen'
+import LoadingScreen from '../src/views/Loading-Screen'
 
-const PhoneScreen = dynamic(() => import('../components/Phone-Screen'), {
+const PhoneScreen = dynamic(() => import('../src/views/Phone-Screen'), {
   // ssr: false,
   loading: () => <LoadingScreen />,
 })
 // import { AuthFlow } from 'react-native-doorman'
 // const { PhoneScreen } = AuthFlow
-import { User } from '../api/user'
-import { NavigationRoutes } from '../navigation/routes'
-import { useAuthStateChanged } from '../hooks/useAuthStateChanged'
+import { User } from '../src/api/user'
+import { NavigationRoutes } from '../src/navigation/routes'
+import { useAuthStateChanged } from '../src/hooks/useAuthStateChanged'
 import { useAuthGate } from 'react-native-doorman'
+import { Platform } from 'react-native'
 
 // type Props<T extends { routeName: string }> = {
 //   redirect?: T
@@ -87,6 +88,8 @@ function Auth<T extends { routeName: string }>() {
         disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
         buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
       }}
+      // no header on mobile: let react navigation handle that
+      renderHeader={Platform.OS === 'web' ? undefined : null}
       onSmsSuccessfullySent={onSmsSuccessfullySent}
     />
   )

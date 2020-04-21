@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
-import Providers from '../src/providers'
-// @ts-ignore
-import { PageTransition } from 'next-page-transitions'
 import { Platform } from 'react-native'
+
+import Providers from '../src/providers'
 
 if (Platform.OS === 'web' && process.browser) {
   if (location.protocol !== 'https:' && process.env.NODE_ENV !== 'production') {
@@ -16,10 +15,13 @@ if (Platform.OS === 'web' && process.browser) {
   }
 }
 
+// @ts-ignore
+global.setImmediate = setTimeout
+
 export default ({ Component, pageProps, router }: AppProps) => {
   return (
     <Providers>
-        <Component {...pageProps} key={router.route} />
+      <Component {...pageProps} key={router.route} />
     </Providers>
   )
 }

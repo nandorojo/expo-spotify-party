@@ -7,9 +7,6 @@ type Props = {
   children: ReactNode
 }
 
-// @ts-ignore
-global.setImmediate = setTimeout
-
 const Providers = ({ children }: Props) => {
   return (
     <FuegoProvider>
