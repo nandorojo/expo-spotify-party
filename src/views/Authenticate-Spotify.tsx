@@ -36,7 +36,8 @@ const AuthenticateSpotify = () => {
       // navigate()
     }
   })
-  if (authLoading || !user || loading) return <LoadingScreen />
+  if (authLoading || !user || loading)
+    return <LoadingScreen text="Loading Spotify..." />
   // return null
   // const { getParam, navigate } = useRouting()
   // const redirectPartyId = getParam<string>('redirectPartyId')

@@ -6,7 +6,7 @@ import { User } from '../api/user'
 import { Platform } from 'react-native'
 
 export default function ConfirmPhone() {
-  const { getParam, navigate, goBack, prefetch } = useRouting()
+  const { getParam, navigate, goBack, popToTop } = useRouting()
   const redirectPartyId = getParam<string | undefined>('redirectPartyId')
   return (
     <AuthFlow.ConfirmScreen
@@ -14,10 +14,10 @@ export default function ConfirmPhone() {
       renderHeader={Platform.OS === 'web' ? undefined : null}
       backgroundColor="#1DB954"
       onGoBack={goBack}
-      onCodeVerified={async () => {
+      onUserSuccessfullySignedIn={async () => {
         const me = await User.get()
         console.log({ me })
-        if (me.has_auth) {
+        if (User.hasSpotifyAccountLinked(me)) {
           // all auth is complete
           if (redirectPartyId) {
             navigate({
@@ -30,11 +30,12 @@ export default function ConfirmPhone() {
               },
             })
           } else {
+            popToTop()
             navigate({
               routeName: NavigationRoutes.dashboard,
             })
           }
-        } else if (me.handle) {
+        } else if (User.hasOnboarded(me)) {
           // has handle, but not spotify
           navigate({
             routeName: NavigationRoutes.spotifyAuth,

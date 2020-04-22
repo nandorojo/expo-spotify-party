@@ -1,1 +1,1 @@
-export { default } from '../src/views/Onboarding'
+export { default } from '../src/views/Create-User'

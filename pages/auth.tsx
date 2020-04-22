@@ -33,7 +33,7 @@ function Auth<T extends { routeName: string }>() {
     if (!user) return console.log('no user here...')
     const me = await User.get()
     console.log({ me })
-    if (me.has_auth) {
+    if (User.hasSpotifyAccountLinked(me)) {
       // all auth is complete
       if (redirectPartyId) {
         navigate({
@@ -45,7 +45,7 @@ function Auth<T extends { routeName: string }>() {
       } else {
         navigate({ routeName: NavigationRoutes.dashboard })
       }
-    } else if (me.handle) {
+    } else if (User.hasOnboarded(me)) {
       // has handle, but not spotify
       navigate({
         routeName: NavigationRoutes.spotifyAuth,
@@ -81,16 +81,16 @@ function Auth<T extends { routeName: string }>() {
 
   return (
     <PhoneScreen
-      backgroundColor="#1DB954"
-      {...{
-        title: `Sign in to continue`,
-        message: `We'll text you a code to confirm it's you.`,
-        disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
-        buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
-      }}
-      // no header on mobile: let react navigation handle that
-      renderHeader={Platform.OS === 'web' ? undefined : null}
-      onSmsSuccessfullySent={onSmsSuccessfullySent}
+    // backgroundColor="#1DB954"
+    // {...{
+    //   title: `Sign in to continue`,
+    //   message: `We'll text you a code to confirm it's you.`,
+    //   disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
+    //   buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
+    // }}
+    // // no header on mobile: let react navigation handle that
+    // renderHeader={Platform.OS === 'web' ? undefined : null}
+    // onSmsSuccessfullySent={onSmsSuccessfullySent}
     />
   )
 }

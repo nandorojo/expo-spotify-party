@@ -13,7 +13,7 @@ import { User } from '../api/user'
 import { NavigationRoutes } from '../navigation/routes'
 import { useAuthStateChanged } from '../hooks/useAuthStateChanged'
 import { useAuthGate } from 'react-native-doorman'
-import { Platform } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 
 // type Props<T extends { routeName: string }> = {
 //   redirect?: T
@@ -48,9 +48,16 @@ function PhoneScreen<T extends { routeName: string }>() {
       // no header on mobile: let react navigation handle that
       renderHeader={Platform.OS === 'web' ? undefined : null}
       onSmsSuccessfullySent={onSmsSuccessfullySent}
-      containerStyle={{ width: '100%' }}
+      containerStyle={styles.container}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  container: Platform.select({
+    web: undefined,
+    default: { width: '100%' },
+  }),
+})
 
 export default PhoneScreen

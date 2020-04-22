@@ -4,10 +4,11 @@ import AnimatedTabBar from '@gorhom/animated-tabbar'
 import { NavigationRoutes } from '../routes'
 import Home from '../../../pages/index'
 import { TextStyle } from 'react-native'
-import Animated from 'react-native-reanimated'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Entypo from '@expo/vector-icons/Entypo'
 import { BaseStack } from '../stacks/base-stack'
+import { ThemeUi } from '../../theme'
+import Animated from 'react-native-reanimated'
 
 console.log({ Ionicons })
 
@@ -35,20 +36,22 @@ type TabsConfigsType<
   [key in K]: TabConfigsType
 }
 
+const Icon = Animated.createAnimatedComponent(Ionicons)
+
 const tabs: TabsConfigsType<MainTabsParams> = {
   dashboard: {
     labelStyle: {
-      color: '#5B37B7',
+      color: ThemeUi.colors.text,
     },
     icon: {
       component: ({ color, size }) => (
-        <Ionicons size={size} color={'black'} name="ios-musical-note" />
+        <Icon size={size} color={color} name="ios-musical-note" />
       ),
-      activeColor: 'rgba(91,55,183,1)',
+      activeColor: `${ThemeUi.colors.text}`,
       inactiveColor: 'rgba(0,0,0,1)',
     },
     background: {
-      activeColor: 'rgba(223,215,243,1)',
+      activeColor: `${ThemeUi.colors.primary}`,
       inactiveColor: 'rgba(223,215,243,0)',
     },
   },
@@ -94,20 +97,30 @@ type MainTabsParams = {
 
 const Tab = createBottomTabNavigator<MainTabsParams>()
 
-const PartiesTab = () => <BaseStack />
-const SpotifyTab = () => <BaseStack initialRouteName="spotifyAuth" />
+const DashboardTab = () => <BaseStack initialRouteName="dashboard" />
+// const SpotifyTab = () => <BaseStack initialRouteName="spotifyAuth" />
 
 export default function MainTabs() {
   return (
-    <Tab.Navigator tabBar={props => <AnimatedTabBar tabs={tabs} {...props} />}>
+    <Tab.Navigator
+      tabBar={props =>
+        null && (
+          <AnimatedTabBar
+            style={{ backgroundColor: ThemeUi.colors.background }}
+            tabs={tabs}
+            {...props}
+          />
+        )
+      }
+    >
       <Tab.Screen
         name={NavigationRoutes.dashboard}
         options={() => ({
           title: 'Parties',
         })}
-        component={PartiesTab}
+        component={DashboardTab}
       />
-      <Tab.Screen
+      {/*<Tab.Screen
         name={NavigationRoutes.spotifyAuth}
         options={() => ({
           title: 'Spotify',
@@ -120,7 +133,7 @@ export default function MainTabs() {
           title: 'Account',
         })}
         component={Home}
-      />
+      />*/}
     </Tab.Navigator>
   )
 }

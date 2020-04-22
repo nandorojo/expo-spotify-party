@@ -1,6 +1,7 @@
 {
   "extends": ["nando"],
   "rules": {
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "@typescript-eslint/camelcase": "off"
   }
 }

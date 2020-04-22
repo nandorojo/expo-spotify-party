@@ -2285,6 +2285,14 @@
   dependencies:
     nanoid "^3.0.2"
 
+"@react-navigation/stack@^5.2.11":
+  version "5.2.11"
+  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.2.11.tgz#3e8d5e64a7a46c9fdb672eed74c973c3073e8ca5"
+  integrity sha512-Gt+T9FlXB8yQGS/0Mg987Wzr/XbPwSROujn0lTzw328wVpHKoilLStdMf5u5pxMMsNQ6HBtzITksM3FyxY9/0A==
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 "@types/anymatch@*":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
@@ -5661,20 +5669,20 @@ expo-location@~8.1.0:
   dependencies:
     invariant "^2.2.4"
 
-expo-navigation-core@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/expo-navigation-core/-/expo-navigation-core-0.3.2.tgz#cc0621a1838f6519c32f7f66ff5dfeb7501d2955"
-  integrity sha512-g5b2lU820L3nJrfdGH2wgW4J/HBWFADKtWCA2oTiCKL7G9LvZr4xlz3/pcji2zixKaMEWK1dtgwCATCssBU52A==
+expo-navigation-core@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/expo-navigation-core/-/expo-navigation-core-0.3.3.tgz#6dfe4b97591bd852c59d44cf595c35e633a650c7"
+  integrity sha512-lbcKAjbi/2uP2oHg+AEyGt5lF/kIjrps+ZucaPZqwLUCU94mbIeZYtFkmOGbJuqS9kiXrTvey7PL+YFkZr9tig==
   dependencies:
     "@react-navigation/native" "^5.0.0-alpha.29"
     lodash "^4.17.15"
 
-expo-next-react-navigation@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/expo-next-react-navigation/-/expo-next-react-navigation-1.1.3.tgz#7bb9562d74f42290fb3b05456c2850f76528fbf7"
-  integrity sha512-kacDNtejCqNPf4fgh83HoGoa0U9NFk+smx2u+wsJr7k14JVeVa4pc/2+Lp5xHck/jb71Ruoz1anmLdMIg91CaA==
+expo-next-react-navigation@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/expo-next-react-navigation/-/expo-next-react-navigation-1.1.5.tgz#2cd60a0505a9d0facd3c4d2201701f7569af18ce"
+  integrity sha512-Q5VjDF4fH9uILIg6xbab28QfL0AvIL5B5E1F7Au/qIUcJLw2/+TKUgZRopRzsD1o0d3cSgcMSTzrODq1ZGNavg==
   dependencies:
-    expo-navigation-core "^0.3.2"
+    expo-navigation-core "^0.3.3"
     lodash "^4.17.15"
     next "^9.1.5"
 
@@ -10205,10 +10213,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-doorman@^1.1.31:
-  version "1.1.31"
-  resolved "https://registry.yarnpkg.com/react-native-doorman/-/react-native-doorman-1.1.31.tgz#782eb5f261f4a38c44a308f3c87985d41fb86b0d"
-  integrity sha512-Yrm/99N7uY6Fa1/VybJ2AvRv3KveVbmyt7C7VcywMWa03p9wRNZfE9NCM0jOJQZZp/9vL6aMU4FXYyQe6lI1wg==
+react-native-doorman@^1.1.32:
+  version "1.1.32"
+  resolved "https://registry.yarnpkg.com/react-native-doorman/-/react-native-doorman-1.1.32.tgz#7680e10b812ca0a51dbecf71b9fa4666b78ed7d8"
+  integrity sha512-dhuoZQglyG0xtGMvvq3sEH4fZhurvrcw9gbeUPN1R7yvqYJXQHaSOA0BegbnSY1znU+zVL/AGnVjuapD1bmh/g==
   dependencies:
     "@nandorojo/react-native-phone-input" "^0.2.8"
     expo-linear-gradient "^8.0.0"

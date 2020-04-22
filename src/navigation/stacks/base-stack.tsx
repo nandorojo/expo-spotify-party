@@ -2,9 +2,13 @@ import * as React from 'react'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack'
 import { AuthStack } from './auth-stack'
 import Party from '../../views/Party'
-import Onboarding from '../../views/Onboarding'
+import Onboarding from '../../views/Create-User'
 import { NavigationRoutes } from '../routes'
 import AuthenticateSpotify from '../../views/Authenticate-Spotify'
+import Home from '../../../pages'
+import { Text, Platform } from 'react-native'
+import { ThemeUi } from '../../theme'
+import { createStackNavigator } from '@react-navigation/stack'
 
 type BaseStackParams = {
   party: {
@@ -22,7 +26,12 @@ type BaseStackParams = {
   dashboard: undefined
 }
 
-const Stack = createNativeStackNavigator<BaseStackParams>()
+const create = Platform.select({
+  web: createStackNavigator,
+  default: createNativeStackNavigator,
+})
+
+const Stack = create<BaseStackParams>()
 
 type Props = {
   initialRouteName?: keyof BaseStackParams
@@ -30,7 +39,15 @@ type Props = {
 
 export function BaseStack({ initialRouteName }: Props) {
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}>
+    <Stack.Navigator
+      screenOptions={{
+        headerLargeTitle: true,
+        headerTintColor: 'white',
+        headerStyle: { backgroundColor: ThemeUi.colors.primary },
+        headerRight: () => <Text style={{ color: 'white' }}>Hi</Text>,
+      }}
+      initialRouteName={initialRouteName}
+    >
       <Stack.Screen
         options={() => ({
           title: 'Party',
@@ -47,6 +64,11 @@ export function BaseStack({ initialRouteName }: Props) {
       <Stack.Screen
         name={NavigationRoutes.spotifyAuth}
         component={AuthenticateSpotify}
+      />
+      <Stack.Screen
+        name={NavigationRoutes.dashboard}
+        component={Home}
+        options={() => ({ title: 'Spotify Party' })}
       />
     </Stack.Navigator>
   )
