@@ -61,8 +61,8 @@ export const useSpotifyAuth = ({ authUrl, alreadyAuthenticated }: Props) => {
         //     Platform.OS === 'web' ? AuthSession.getRedirectUrl() : undefined,
         // })
         return authSession
-        console.log('autttthhh', { authSession })
-        if (authSession.type === 'success') alert('Success!')
+        // console.log('autttthhh', { authSession })
+        // if (authSession.type === 'success') alert('Success!')
         // const authSession = await AuthSession.startAsync({
         //   authUrl: url,
         // })

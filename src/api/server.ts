@@ -4,7 +4,13 @@
 
 import { fuego } from './fuego'
 
-type ActionOptions = 'createUser' | 'createSpotifyAuthUrl'
+type ActionOptions =
+  | 'createUser'
+  | 'createSpotifyAuthUrl'
+  | 'makeDJ'
+  | 'endDJ'
+  | 'subscribe'
+  | 'unsubscribe'
 type ActionCreator<A extends ActionOptions> = { action: A }
 
 // See  https://artsy.github.io/blog/2018/11/21/conditional-types-in-typescript/
@@ -19,11 +25,27 @@ type CreateUser = ActionCreator<'createUser'> & {
   handle: string
 }
 
+type MakeDJ = ActionCreator<'makeDJ'>
+
 type CreateSpotifyAuthUrl = ActionCreator<'createSpotifyAuthUrl'> & {
   redirectUri: string
 }
 
-type Req = CreateUser | CreateSpotifyAuthUrl
+type EndDJ = ActionCreator<'endDJ'>
+
+type Subscribe = ActionCreator<'subscribe'> & {
+  handle: string
+}
+
+type Unsubscribe = ActionCreator<'unsubscribe'>
+
+type Req =
+  | CreateUser
+  | CreateSpotifyAuthUrl
+  | MakeDJ
+  | EndDJ
+  | Subscribe
+  | Unsubscribe
 
 type ResponseModel<Res = {}> = Res & {
   message?: string

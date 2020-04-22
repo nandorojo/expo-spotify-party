@@ -23,11 +23,12 @@ function PhoneScreen<T extends { routeName: string }>() {
   const { getParam } = useRouting()
   const redirectPartyId = getParam<T>('redirectPartyId')
   // const authType = getParam<'sign in' | 'sign up' | undefined>('authType')
-  const { navigate } = useRouting()
+  const { navigate, push } = useRouting()
   const onSmsSuccessfullySent = useCallback(() => {
+    console.log('text sent, will navigate')
     navigate({
       routeName: NavigationRoutes.confirmPhone,
-      key: NavigationRoutes.confirmPhone,
+      // key: NavigationRoutes.confirmPhone,
       params: redirectPartyId
         ? {
             redirectPartyId,

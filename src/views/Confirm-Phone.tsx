@@ -4,9 +4,15 @@ import { useRouting } from 'expo-next-react-navigation'
 import { NavigationRoutes } from '../navigation/routes'
 import { User } from '../api/user'
 import { Platform } from 'react-native'
+import {
+  useNavigation,
+  CommonActions,
+  StackActions,
+} from '@react-navigation/native'
 
 export default function ConfirmPhone() {
   const { getParam, navigate, goBack, popToTop } = useRouting()
+  const { dispatch } = useNavigation()
   const redirectPartyId = getParam<string | undefined>('redirectPartyId')
   return (
     <AuthFlow.ConfirmScreen
@@ -14,7 +20,9 @@ export default function ConfirmPhone() {
       renderHeader={Platform.OS === 'web' ? undefined : null}
       backgroundColor="#1DB954"
       onGoBack={goBack}
+      inputProps={{ autoFocus: false }}
       onUserSuccessfullySignedIn={async () => {
+        console.log('user sign in worked...')
         const me = await User.get()
         console.log({ me })
         if (User.hasSpotifyAccountLinked(me)) {
@@ -30,10 +38,15 @@ export default function ConfirmPhone() {
               },
             })
           } else {
-            popToTop()
-            navigate({
-              routeName: NavigationRoutes.dashboard,
-            })
+            console.log('WILLLPOPPP')
+            // popToTop()
+            if (Platform.OS === 'web') {
+              navigate({
+                routeName: NavigationRoutes.dashboard,
+              })
+            } else {
+              navigate({ routeName: NavigationRoutes.account })
+            }
           }
         } else if (User.hasOnboarded(me)) {
           // has handle, but not spotify
@@ -45,11 +58,17 @@ export default function ConfirmPhone() {
           })
         } else {
           // has no auth
+          // navigate({
+          //   routeName: NavigationRoutes.onboarding,
+          //   key: NavigationRoutes.onboarding,
+          //   // params: {
+          //   //   redirectPartyId,
+          //   // },
+          // })
+          console.log('WILL OPEN ONBOARDING')
           navigate({
             routeName: NavigationRoutes.onboarding,
-            params: {
-              redirectPartyId,
-            },
+            key: NavigationRoutes.onboarding,
           })
         }
       }}

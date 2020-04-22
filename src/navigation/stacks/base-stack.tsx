@@ -10,6 +10,8 @@ import { Text, Platform } from 'react-native'
 import { ThemeUi } from '../../theme'
 import { createStackNavigator } from '@react-navigation/stack'
 import Dashboard from '../../views/Dashboard'
+import MaybeAccount from '../../views/Maybe-Account'
+import { fuego } from '../../api/fuego'
 
 type BaseStackParams = {
   party: {
@@ -25,6 +27,7 @@ type BaseStackParams = {
     redirectPartyId?: string
   }
   dashboard: undefined
+  account: undefined
 }
 
 // const create = Platform.select({
@@ -45,9 +48,6 @@ export function BaseStack({ initialRouteName }: Props) {
         headerLargeTitle: true,
         headerTintColor: ThemeUi.colors.text,
         headerStyle: { backgroundColor: ThemeUi.colors.background },
-        headerRight: () => (
-          <Text style={{ color: ThemeUi.colors.text }}>Hi</Text>
-        ),
         contentStyle: {
           backgroundColor: ThemeUi.colors.background,
           // flex: 1,
@@ -77,6 +77,11 @@ export function BaseStack({ initialRouteName }: Props) {
         name={NavigationRoutes.dashboard}
         component={Dashboard}
         options={() => ({ title: 'Spotify Party' })}
+      />
+      <Stack.Screen
+        name={NavigationRoutes.account}
+        component={MaybeAccount}
+        options={() => ({ title: 'Account' })}
       />
     </Stack.Navigator>
   )

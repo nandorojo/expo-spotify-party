@@ -12,8 +12,12 @@ const ThemeUi = {
     text: '#ffffff',
     border: '',
     surface: '#080f1e',
+    muted: '#131313',
+    alert: 'red',
   },
   spacing: [
+    0,
+    baseFontSize * 0.75,
     baseFontSize,
     baseFontSize * 1.1,
     baseFontSize * 1.3,
@@ -32,6 +36,13 @@ const ThemeUi = {
   radii: [2, 4, 6, 8, 10],
   sizes: {
     container: Platform.OS === 'web' ? '66rem' : '100%',
+  },
+  borders: [2, 4, 6, 8, 10],
+  fontWeights: {
+    normal: '400',
+    medium: '500',
+    semibold: '600',
+    bold: 'bold',
   },
 }
 

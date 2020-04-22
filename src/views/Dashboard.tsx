@@ -6,8 +6,8 @@ import { Container } from '../components/Container'
 
 const Scroll = styled.ScrollView`
   flex: 1;
-  background-color: ${({ theme }: ThemeProps) => theme.colors.background};
-  padding: ${({ theme }: ThemeProps) => `${theme.spacing[0]}px`};
+  /* background-color: ${({ theme }: ThemeProps) => theme.colors.background}; */
+  /* padding: ${({ theme }: ThemeProps) => `${theme.spacing[1]}px`}; */
 `
 
 const Text = styled.Text`
