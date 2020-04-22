@@ -98,20 +98,18 @@ type MainTabsParams = {
 const Tab = createBottomTabNavigator<MainTabsParams>()
 
 const DashboardTab = () => <BaseStack initialRouteName="dashboard" />
-// const SpotifyTab = () => <BaseStack initialRouteName="spotifyAuth" />
+const SpotifyTab = () => <BaseStack initialRouteName="spotifyAuth" />
 
 export default function MainTabs() {
   return (
     <Tab.Navigator
-      tabBar={props =>
-        null && (
-          <AnimatedTabBar
-            style={{ backgroundColor: ThemeUi.colors.background }}
-            tabs={tabs}
-            {...props}
-          />
-        )
-      }
+      tabBar={props => (
+        <AnimatedTabBar
+          style={{ backgroundColor: `transparent` }}
+          tabs={tabs}
+          {...props}
+        />
+      )}
     >
       <Tab.Screen
         name={NavigationRoutes.dashboard}
@@ -126,14 +124,14 @@ export default function MainTabs() {
           title: 'Spotify',
         })}
         component={SpotifyTab}
-      />
+      />*/}
       <Tab.Screen
         name={NavigationRoutes.account}
         options={() => ({
           title: 'Account',
         })}
         component={Home}
-      />*/}
+      />
     </Tab.Navigator>
   )
 }

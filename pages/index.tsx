@@ -8,6 +8,7 @@ import { NavigationRoutes } from '../src/navigation/routes'
 
 export default function Home() {
   const [user, signOut] = useMaybeDoormanUser()
+  console.log({ user })
   const { navigate } = useRouting()
   return (
     <View style={styles.container}>

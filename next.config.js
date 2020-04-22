@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { withExpo } = require('@expo/next-adapter')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
@@ -5,7 +6,9 @@ const withTM = require('next-transpile-modules')([
   'expo-next-react-navigation',
   'react-native-doorman',
   '@nandorojo/fuego',
+  '@nandorojo/swr-firestore',
   'react-native-reanimated',
+  '@nandorojo/bootstrap',
 ])
 const withPlugins = require('next-compose-plugins')
 

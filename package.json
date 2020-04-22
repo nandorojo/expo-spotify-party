@@ -13,9 +13,12 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
+    "@expo/match-media": "^0.0.0-alpha.5",
     "@expo/next-adapter": "^2.0.31",
     "@gorhom/animated-tabbar": "^1.0.0",
+    "@nandorojo/bootstrap": "^0.0.5",
     "@nandorojo/fuego": "^0.0.25",
+    "@nandorojo/swr-firestore": "^0.0.2",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.2.7",
     "@react-navigation/native": "^5.1.6",

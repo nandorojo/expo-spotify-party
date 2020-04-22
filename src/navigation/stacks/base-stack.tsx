@@ -9,6 +9,7 @@ import Home from '../../../pages'
 import { Text, Platform } from 'react-native'
 import { ThemeUi } from '../../theme'
 import { createStackNavigator } from '@react-navigation/stack'
+import Dashboard from '../../views/Dashboard'
 
 type BaseStackParams = {
   party: {
@@ -26,12 +27,12 @@ type BaseStackParams = {
   dashboard: undefined
 }
 
-const create = Platform.select({
-  web: createStackNavigator,
-  default: createNativeStackNavigator,
-})
+// const create = Platform.select({
+//   web: createStackNavigator,
+//   default: createNativeStackNavigator,
+// })
 
-const Stack = create<BaseStackParams>()
+const Stack = createNativeStackNavigator<BaseStackParams>()
 
 type Props = {
   initialRouteName?: keyof BaseStackParams
@@ -42,9 +43,16 @@ export function BaseStack({ initialRouteName }: Props) {
     <Stack.Navigator
       screenOptions={{
         headerLargeTitle: true,
-        headerTintColor: 'white',
-        headerStyle: { backgroundColor: ThemeUi.colors.primary },
-        headerRight: () => <Text style={{ color: 'white' }}>Hi</Text>,
+        headerTintColor: ThemeUi.colors.text,
+        headerStyle: { backgroundColor: ThemeUi.colors.background },
+        headerRight: () => (
+          <Text style={{ color: ThemeUi.colors.text }}>Hi</Text>
+        ),
+        contentStyle: {
+          backgroundColor: ThemeUi.colors.background,
+          // flex: 1,
+        },
+        // headerTranslucent: true,
       }}
       initialRouteName={initialRouteName}
     >
@@ -67,7 +75,7 @@ export function BaseStack({ initialRouteName }: Props) {
       />
       <Stack.Screen
         name={NavigationRoutes.dashboard}
-        component={Home}
+        component={Dashboard}
         options={() => ({ title: 'Spotify Party' })}
       />
     </Stack.Navigator>

@@ -35,6 +35,7 @@ function PhoneScreen<T extends { routeName: string }>() {
         : undefined,
     })
   }, [navigate, redirectPartyId])
+  console.log('here on auth!!')
 
   return (
     <AuthFlow.PhoneScreen

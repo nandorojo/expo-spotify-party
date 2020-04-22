@@ -1326,6 +1326,13 @@
     util.promisify "^1.0.0"
     write-file-atomic "^2.3.0"
 
+"@expo/match-media@^0.0.0-alpha.5":
+  version "0.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@expo/match-media/-/match-media-0.0.0-alpha.5.tgz#6232ae807f225e35ea09c8a460c539a7465c153b"
+  integrity sha512-b909reqRQZMPs83X+vvrkLQrRj7NeAA9+xBKGtBG7tjpUXoEvccBUpL5AMgoehERA/900INlEPUg9Cz+PjRQfQ==
+  dependencies:
+    css-mediaquery "^0.1.2"
+
 "@expo/next-adapter@^2.0.31":
   version "2.0.31"
   resolved "https://registry.yarnpkg.com/@expo/next-adapter/-/next-adapter-2.0.31.tgz#8f9614be0af5e28265811f2ba526fa448c3b9d55"
@@ -2080,6 +2087,11 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@nandorojo/bootstrap@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@nandorojo/bootstrap/-/bootstrap-0.0.5.tgz#b4aa2149637382d132f593adb8684c1a99c9daae"
+  integrity sha512-Nt0+o14+EvKKd7KsWrgJ+DvI3EnQgOgicZxR7YdWXxOBCt+I4MtqJeQ4eL2loC+aF9zdaeY/t0lXJH4KeT0F6Q==
+
 "@nandorojo/fuego@^0.0.25":
   version "0.0.25"
   resolved "https://registry.yarnpkg.com/@nandorojo/fuego/-/fuego-0.0.25.tgz#b33185663d4433f5b5296f0def306120e4ffc4bd"
@@ -2096,6 +2108,14 @@
     google-libphonenumber "^3.2.2"
     lodash "^4.17.4"
     prop-types "^15.5.10"
+
+"@nandorojo/swr-firestore@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.0.2.tgz#a099d2348f28f23f4bc1bb2286e61659949bf122"
+  integrity sha512-aQCz8aoroBgXmnQDGDJpsDX2keCdBCxXnzxZDTlzr30cQnMMrgbrLwLQLaOQ311zJh8gFogjZJF/QPpcKUmm5w==
+  dependencies:
+    swr "^0.2.0"
+    use-memo-one "^1.1.1"
 
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
@@ -5853,6 +5873,11 @@ fancy-log@^1.3.2:
     color-support "^1.1.3"
     parse-node-version "^1.0.0"
     time-stamp "^1.0.0"
+
+fast-deep-equal@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
+  integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
 
 fast-deep-equal@^3.1.1:
   version "3.1.1"
@@ -11672,6 +11697,13 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+swr@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.2.0.tgz#2088271bc0a8044089cf2badde013648f98783ee"
+  integrity sha512-8IZCdM0deUPhDiqOmyaj0BsnNjav1fu83nD0d07PEAzOHOn+lxcJOxwXeDBShwF6qCeZ8u8ab+a2yXkjD8yT3A==
+  dependencies:
+    fast-deep-equal "2.0.1"
 
 symbol-observable@1.0.1:
   version "1.0.1"

@@ -31,7 +31,7 @@ const create = Platform.select({
   default: createNativeStackNavigator,
 })
 
-const Stack = create<AuthStackParams>()
+const Stack = createNativeStackNavigator<AuthStackParams>()
 
 export function AuthStack() {
   return (
