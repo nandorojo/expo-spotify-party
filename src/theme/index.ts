@@ -41,7 +41,7 @@ const ThemeUi = {
   fontWeights: {
     normal: '400',
     medium: '500',
-    semibold: '600',
+    semibold: '600' as '600',
     bold: 'bold',
   },
 }

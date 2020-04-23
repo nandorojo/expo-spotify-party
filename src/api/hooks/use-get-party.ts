@@ -7,6 +7,9 @@ export const useGetParty = (
   id: string,
   options?: Parameters<typeof useDocument>['1']
 ) => {
-  // return useUser(id)
-  return useDocument<Document<UserSchema>>(new User({ id }).path, options)
+  const response = useDocument<Document<UserSchema>>(
+    new User({ id }).path,
+    options
+  )
+  return response
 }

@@ -12,6 +12,7 @@ import { useMe } from '../api/hooks/use-me'
 import { User } from '../api/user'
 import { useDocument, Document } from '@nandorojo/swr-firestore'
 import { UserSchema } from '../schema/user-schema'
+import PartySplash from './Party-Splash'
 
 const MaybeParty = () => {
   const { getParam } = useRouting()
@@ -20,27 +21,24 @@ const MaybeParty = () => {
 
   const { user: authUser, loading: authLoading } = useAuthGate()
   // const { data: me, loading: meLoading } = useMe({ listen: true })
-  const { data: me } = useDocument<Document<UserSchema>>(User.me.path, {
+  const { data: me, error } = useDocument<Document<UserSchema>>(User.me.path, {
     refreshInterval: 2000,
   })
+  const meLoading = !me && !error
 
   const iAmSubscribed = me?.subscribed_to?.uid === id
   const iAmDj = id === authUser?.uid
   const hasSpotify = !!(me && User.hasSpotifyAccountLinked(me))
 
-  useEffect(() => {
-    console.log({ me })
-  }, [me])
+  if (authLoading || meLoading) return <LoadingScreen />
 
-  if (authLoading) return <LoadingScreen />
+  if (!id) return <JoinParty />
 
-  if (!id) throw new Error('missing party id')
-
-  if (!authUser || !me || (!iAmDj && !iAmSubscribed)) {
-    return <JoinParty hasSpotify={hasSpotify} id={id} />
+  if (!authUser || (!iAmDj && !iAmSubscribed)) {
+    return <PartySplash hasSpotify={hasSpotify} id={id} />
   }
 
-  return <Party id={id} iAmSubscribed={iAmSubscribed} iAmDj={iAmDj} {...me} />
+  return <Party id={id} iAmSubscribed={iAmSubscribed} iAmDj={iAmDj} />
 }
 
 export default MaybeParty

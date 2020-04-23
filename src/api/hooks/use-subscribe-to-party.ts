@@ -1,20 +1,23 @@
 import { useState, useCallback } from 'react'
 import { Party } from '../party'
 
-export const useSubscribeToParty = ({ id }: { id: string }) => {
+export const useSubscribeToParty = () => {
   const [status, setStatus] = useState<
     'none' | 'loading' | 'error' | 'success'
   >('none')
 
-  const subscribe = useCallback(async () => {
+  const subscribe = useCallback(async (handle: string) => {
     try {
       setStatus('loading')
-      await new Party({ id }).subscribe()
+      const { success, message, uid } = await new Party({ handle }).subscribe()
+      if (!success) throw new Error(message)
       setStatus('success')
+      return { uid }
     } catch (e) {
+      console.error('useSubscribeToParty error ', e.message)
       setStatus('error')
     }
-  }, [id])
+  }, [])
 
   return {
     subscribe,

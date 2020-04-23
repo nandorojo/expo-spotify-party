@@ -14,6 +14,7 @@ import {
 } from '@react-navigation/native'
 import { Platform } from 'react-native'
 import { Button } from 'react-native-elements'
+import Input from '../components/Input'
 
 type Props = {}
 
@@ -27,13 +28,13 @@ const Background = styled.ScrollView`
   background-color: ${({ theme }: ThemeProps) => theme.colors.background};
 `
 
-const Input = styled.TextInput`
-  color: ${({ theme }: ThemeProps) => theme.colors.text};
-  font-size: ${({ theme }: ThemeProps) => theme.fontSizes[2]}px;
-  font-weight: bold;
-  padding-top: ${({ theme }: ThemeProps) => theme.spacing[0]}px;
-  padding-bottom: ${({ theme }: ThemeProps) => theme.spacing[1]}px;
-`
+// const Input = styled.TextInput`
+//   color: ${({ theme }: ThemeProps) => theme.colors.text};
+//   font-size: ${({ theme }: ThemeProps) => theme.fontSizes[2]}px;
+//   font-weight: bold;
+//   padding-top: ${({ theme }: ThemeProps) => theme.spacing[0]}px;
+//   padding-bottom: ${({ theme }: ThemeProps) => theme.spacing[1]}px;
+// `
 const Btn = styled(Button)`
   /* margin-top: 20px; */
   /* background-color: ${({ theme }: ThemeProps) => theme.colors.primary}; */
@@ -91,7 +92,7 @@ const Onboarding = () => {
   return (
     <Background keyboardShouldPersistTaps="handled">
       <Container>
-        <ColorCard color="muted">
+        {/* <ColorCard color="muted">
           <Input
             value={handle}
             onChangeText={setHandle}
@@ -100,8 +101,17 @@ const Onboarding = () => {
             placeholderTextColor={`${ThemeUi.colors.text}80`}
             // autoFocus
             selectionColor={ThemeUi.colors.primary}
-          />
-        </ColorCard>
+            </ColorCard>
+  />*/}
+        <Input
+          value={handle}
+          onChangeText={setHandle}
+          placeholder="Type a username"
+          onSubmitEditing={create}
+          placeholderTextColor={`${ThemeUi.colors.text}80`}
+          // autoFocus
+          selectionColor={ThemeUi.colors.primary}
+        />
         {!!ready && (
           <Btn
             title="Continue"

@@ -7,5 +7,5 @@ export const NavigationRoutes = {
   dashboard: 'dashboard' as 'dashboard',
   confirmPhone: 'confirmPhone' as 'confirmPhone',
   AuthStack: 'AuthStack' as 'AuthStack',
-  account: 'account' as 'account',
+  account: 'dashboard' as 'dashboard',
 }

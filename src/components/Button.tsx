@@ -4,26 +4,34 @@ import { ThemeProps, ThemeUi } from '../theme'
 
 type Props = {
   onPress?: () => void
+  variant?: 'small' | 'outline' | 'contained'
+  color?: keyof typeof ThemeUi['colors']
 } & ComponentPropsWithoutRef<typeof Btn>
 
 const Button = (props: Props) => {
-  const { title = 'Continue', ...p } = props
+  const {
+    title = 'Continue',
+    variant = 'contained',
+    color = 'primary',
+    ...p
+  } = props
   const buttonStyle = ({ theme }: ThemeProps) => ({
-    backgroundColor: theme.colors.primary,
-    paddingVertical: theme.spacing[2],
+    backgroundColor: theme.colors[color],
+    paddingVertical:
+      variant === 'small' ? theme.spacing[1] : theme.spacing[1] * 1.25,
     borderRadius: theme.radii[4],
-    marginTop: theme.spacing[2],
-  })
-  const titleStyle = ({ theme }: ThemeProps) => ({
-    fontWeight: theme.fontWeights.semibold,
+    paddingHorizontal:
+      variant === 'small' ? theme.spacing[3] : theme.spacing[3] * 2,
+    // marginTop: theme.spacing[2],
   })
   return (
     <Btn
       title={title}
       buttonStyle={buttonStyle({ theme: ThemeUi })}
-      titleStyle={titleStyle({ theme: ThemeUi })}
+      titleStyle={{
+        fontWeight: ThemeUi.fontWeights.semibold,
+      }}
       {...p}
-      // onPress={onPress}
       // type={'outline'}
     />
   )

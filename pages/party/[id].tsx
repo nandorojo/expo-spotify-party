@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import Page from '../../src/wrappers/Page'
 import dynamic from 'next/dynamic'
 import LoadingScreen from '../../src/views/Loading-Screen'
-const Party = dynamic(() => import('../../src/views/Party'), {
+const MaybeParty = dynamic(() => import('../../src/views/Maybe-Party'), {
   loading: () => <LoadingScreen />,
 })
 
@@ -19,7 +19,7 @@ const PartyPage: NextPage<Props> = props => {
         description: 'Listen to Spotify with friends in real-time. 🎧',
       }}
     >
-      <Party />
+      <MaybeParty />
     </Page>
   )
 }

@@ -15,8 +15,14 @@ type Props = {
   icon?: string | ((info: { size: number }) => ReactNode)
   description?: string
   marginBottom?: 0 | 1 | 2 | 3 | 4 | 5
+  textSize?: 0 | 1 | 2 | 3 | 4 | 5
   type?: 'outlined' | 'contained' | 'empty'
   descriptionLocation?: 'under image' | 'under text'
+  right?: () => ReactNode
+  /**
+   * Arrow is only visible if there is an `onPress` set.
+   */
+  hideArrow?: boolean
   // left?: () => ReactNode
 }
 
@@ -59,18 +65,28 @@ const TextContainer = styled.View`
 
 const Text = styled.Text`
   color: ${({ theme }: ThemeProps) => theme.colors.text};
-  font-size: ${({ theme }: ThemeProps) => theme.fontSizes[3]}px;
+  font-size: ${({
+    theme,
+    textSize = 3,
+  }: ThemeProps & Pick<Props, 'textSize'>) => theme.fontSizes[textSize]}px;
   font-weight: bold;
 `
 const Description = styled.Text`
   color: ${({ theme }: ThemeProps) => theme.colors.text};
-  margin-top: ${({ theme, descriptionLocation }: Props & ThemeProps) =>
-    descriptionLocation === 'under text' ? 0 : theme.spacing[2]}px;
+  margin-top: ${({
+    theme,
+    location,
+  }: { location: Props['descriptionLocation'] } & ThemeProps) =>
+    location === 'under text' ? 0 : theme.spacing[2]}px;
   font-size: ${({ theme }: ThemeProps) => theme.fontSizes[0]}px;
 `
 
 const Flex = styled.View`
   flex: 1;
+`
+
+const Right = styled.View`
+  justify-content: center;
 `
 
 const ColorCard = (props: Props) => {
@@ -85,9 +101,27 @@ const ColorCard = (props: Props) => {
     marginBottom,
     type,
     descriptionLocation = 'under image',
+    textSize,
+    hideArrow = false,
+    right,
   } = props
   // @ts-ignore
   const theme: typeof ThemeUi = useTheme()
+
+  const renderRight = () => {
+    if (right) return <Right>{right()}</Right>
+    if (onPress && !hideArrow) {
+      return (
+        <Ionicons
+          size={30}
+          color={theme.colors.text}
+          name="ios-arrow-forward"
+        />
+      )
+    }
+    return null
+  }
+
   return (
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <Container
@@ -105,28 +139,22 @@ const ColorCard = (props: Props) => {
                 <Ionicons name={icon} size={30} color={theme.colors.text} />
               )}
               <TextContainer icon={icon}>
-                {!!text && <Text>{text}</Text>}
+                {!!text && <Text textSize={textSize}>{text}</Text>}
                 {!!description && descriptionLocation === 'under text' && (
-                  <Description descriptionLocation={descriptionLocation}>
+                  <Description location={descriptionLocation}>
                     {description}
                   </Description>
                 )}
               </TextContainer>
             </Row>
             {!!description && descriptionLocation === 'under image' && (
-              <Description descriptionLocation={descriptionLocation}>
+              <Description location={descriptionLocation}>
                 {description}
               </Description>
             )}
             {children}
           </Flex>
-          {!!onPress && (
-            <Ionicons
-              size={30}
-              color={theme.colors.text}
-              name="ios-arrow-forward"
-            />
-          )}
+          {renderRight()}
         </Row>
       </Container>
     </TouchableOpacity>

@@ -3,19 +3,23 @@ import { Text, StyleSheet } from 'react-native'
 import useInterval from '../hooks/use-interval'
 
 const EmojiLoader = (
-  props: Omit<ComponentPropsWithoutRef<typeof Text>, 'children' | 'style'>
+  props: Omit<ComponentPropsWithoutRef<typeof Text>, 'children' | 'style'> & {
+    interval?: number
+  }
 ) => {
+  const { interval = 400, ...textProps } = props
+
   const [count, setCount] = useState(0)
   useInterval(() => {
     setCount(state => state + 1)
-  }, 800)
+  }, interval)
 
   const emojis = ['🎹', '🎸', '🎧', '🥳']
 
   const emoji = emojis[count % emojis.length]
 
   return (
-    <Text {...props} style={styles.text}>
+    <Text {...textProps} style={styles.text}>
       {emoji}
     </Text>
   )

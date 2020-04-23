@@ -11,13 +11,26 @@ export class Party {
     return Server.post('unsubscribe', {})
   }
 
-  public id: string
-  constructor({ id }: { id: string }) {
-    this.id = id
+  public handle: string
+  constructor({ handle }: { handle: string }) {
+    this.handle = handle
   }
   subscribe() {
     return Server.post('subscribe', {
-      handle: this.id,
+      handle: this.handle,
     })
+  }
+  /**
+   * The handle field checks if the UID or handle exists. `handle` can be either UID or handle
+   */
+  async checkIfExists() {
+    const { is_dj: exists, uid: id, ...response } = await Server.post('isDJ', {
+      handle: this.handle,
+    })
+    return {
+      exists,
+      id,
+      ...response,
+    }
   }
 }

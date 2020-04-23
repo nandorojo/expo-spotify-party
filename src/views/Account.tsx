@@ -89,6 +89,11 @@ const Account = () => {
             text="Join Party"
             description="If your friend already started a party, you can listen to their songs in real-time."
             marginBottom={2}
+            onPress={() =>
+              navigate({
+                routeName: NavigationRoutes.party,
+              })
+            }
           />
         </>
       )

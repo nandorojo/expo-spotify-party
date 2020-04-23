@@ -111,6 +111,12 @@ export default function MainTabs() {
           title: 'Spotify',
         })}
         component={SpotifyTab}
+      /> <Tab.Screen
+        name={NavigationRoutes.dashboard}
+        options={() => ({
+          title: 'Home',
+        })}
+        component={DashboardTab}
       />*/}
       <Tab.Screen
         name={NavigationRoutes.account}
@@ -118,13 +124,6 @@ export default function MainTabs() {
           title: 'Account',
         })}
         component={AccountTab}
-      />
-      <Tab.Screen
-        name={NavigationRoutes.dashboard}
-        options={() => ({
-          title: 'Home',
-        })}
-        component={DashboardTab}
       />
     </Tab.Navigator>
   )

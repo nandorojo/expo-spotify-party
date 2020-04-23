@@ -32,9 +32,7 @@ const PartySplash = (props: Props) => {
   const { id: redirectPartyId, hasSpotify } = props
   const { user } = useAuthGate()
   const { navigate } = useRouting()
-  const { subscribe, loading } = useSubscribeToParty({ id: redirectPartyId })
-  useWhyDidYouUpdate('JoinParty', props)
-  console.log('RENDERING JOIN PARTY', Math.random())
+  const { subscribe, loading } = useSubscribeToParty()
 
   const onPress = useCallback(async () => {
     if (!user) {
@@ -52,7 +50,7 @@ const PartySplash = (props: Props) => {
         },
       })
     } else {
-      subscribe()
+      subscribe(redirectPartyId)
     }
   }, [user, hasSpotify, navigate, redirectPartyId, subscribe])
 
@@ -64,7 +62,7 @@ const PartySplash = (props: Props) => {
     <Background>
       <Wrapper>
         <ColorCard
-          text="You're invited to join a Spotify Party."
+          text="Join a Spotify Party."
           description="Once you join, your Spotify songs will update in sync with the DJ."
           color="muted"
         >
