@@ -1,74 +1,117 @@
-import React from 'react'
-import { useRouting } from 'expo-next-react-navigation'
-import { useAuthGate } from 'react-native-doorman'
-import { Text, Button } from 'react-native'
-import { useGetPartyName } from '../api/hooks/use-get-party-name'
-import * as firebase from 'firebase/app'
-import { NavigationRoutes } from '../navigation/routes'
-// import { fuego } from '../api/fuego'
+import React, { useCallback } from 'react'
+import { useDoormanUser } from 'react-native-doorman'
+import { FlatList, StyleSheet } from 'react-native'
+import { useGetParty } from '../api/hooks/use-get-party'
+import { usePartySubscribers } from '../api/hooks/use-party-members'
+import { UserSchema } from '../schema/user-schema'
+import { empty } from '../helpers/empty'
+import { ListItem, Avatar } from 'react-native-elements'
+import ColorCard from '../components/Color-Card'
+import { Container } from '../components/Container'
+import styled from 'styled-components/native'
+import { ThemeProps } from '../theme'
 
-const Party = () => {
-  const { getParam, navigate } = useRouting()
-  const id = getParam<string>('id')
+type Props = {
+  id: string
+  iAmSubscribed: boolean
+  iAmDj: boolean
+} & UserSchema
 
-  const { user, loading } = useAuthGate()
-  const name = useGetPartyName({ id })
+const Empty = styled.Text`
+  font-size: ${({ theme }: ThemeProps) => theme.fontSizes[2]}px;
+`
 
-  // useEffect(() => {
-  //   if (!loading && !user) {
-  //     navigate({
-  //       routeName: NavigationRoutes.auth,
-  //       params: {
-  //         redirect: {
-  //           routeName: 'party',
-  //           params: {
-  //             id,
-  //           },
-  //         },
-  //       },
-  //     })
-  //   }
-  // }, [user, loading, navigate, id])
+const Wrapper = styled(Container)`
+  flex: 1;
+`
 
-  if (loading) return null
+const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
+  const { data: dj, error } = useGetParty(id, {
+    refreshInterval: 3000,
+  })
+  const djLoading = !dj && !error
 
-  if (!user)
+  const {
+    data: subscribers,
+    loading: subscribersLoading,
+  } = usePartySubscribers({ uid: id })
+
+  console.log('party details', { dj, subscribers, iAmDj, iAmSubscribed })
+
+  const { uid } = useDoormanUser()
+
+  const renderItem = useCallback(({ item }: { item: UserSchema }) => {
     return (
-      <Button
-        title="Sign Up"
-        onPress={() =>
-          navigate({
-            routeName: NavigationRoutes.auth,
-            // web: {
-            //   as: '/auth',
-            // },
-            params: {
-              redirectPartyId: id,
-            },
-          })
-        }
+      <Item
+        handle={item.handle ?? ''}
+        displayName={item.display_name ?? ''}
+        imageUrl={item.images?.[0].url ?? ''}
       />
     )
+  }, [])
 
-  //   if (authState && !user) {
-  //     return (
-  //       <AuthFlow
-  //         backgroundColor="#1DB954"
-  //         phoneScreenProps={{
-  //           title: `Sign in to continue to ${name}`,
-  //           message: `We'll text you a code to confirm it's you.`,
-  //           disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
-  //           buttonText: 'Join Party 🎸',
-  //         }}
-  //       />
-  //     )
-  //   }
+  const djImage = dj?.images?.[0].url
+  const djDisplayName = dj?.display_name
+  const djHandle = dj?.handle
+
+  const renderDj = useCallback(() => {
+    console.log('renderDJ', { dj })
+    if (!dj) return null
+    return (
+      <ColorCard
+        text={djHandle}
+        description={djDisplayName}
+        icon={() =>
+          !!djImage && <Avatar size={75} source={{ uri: djImage }} rounded />
+        }
+        marginBottom={2}
+        descriptionLocation="under text"
+      />
+    )
+  }, [dj, djDisplayName, djHandle, djImage])
 
   return (
-    <Text onPress={() => firebase.auth().signOut()}>
-      {`It's a party!`} {name}
-    </Text>
+    <Wrapper>
+      <FlatList
+        data={subscribers ?? empty.array}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ListHeaderComponent={renderDj}
+        ListEmptyComponent={
+          subscribersLoading ? (
+            undefined
+          ) : (
+            <Empty>No one is listening yet...</Empty>
+          )
+        }
+        // contentContainerStyle={styles.list}
+      />
+    </Wrapper>
   )
 }
 
-export default Party
+const styles = StyleSheet.create({
+  list: {
+    flex: 1,
+  },
+})
+
+type ItemProps = {
+  handle: string
+  displayName: string
+  imageUrl: string
+}
+const Item = React.memo((props: ItemProps) => {
+  const { handle, imageUrl, displayName } = props
+  return (
+    <ListItem
+      title={handle}
+      subtitle={displayName}
+      leftAvatar={{ source: { uri: imageUrl }, rounded: true, size: 50 }}
+    />
+  )
+})
+
+const keyExtractor = (item: { id: string }) => item.id
+
+export default React.memo(Party)

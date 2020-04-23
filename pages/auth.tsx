@@ -7,7 +7,7 @@ const PhoneScreen = dynamic(() => import('../src/views/Phone-Screen'), {
   // ssr: false,
   loading: () => <LoadingScreen />,
 })
-// import { AuthFlow } from 'react-native-doorman'
+import { AuthFlow } from 'react-native-doorman'
 // const { PhoneScreen } = AuthFlow
 import { User } from '../src/api/user'
 import { NavigationRoutes } from '../src/navigation/routes'
@@ -67,30 +67,32 @@ function Auth<T extends { routeName: string }>() {
       })
     }
   })
-  const onSmsSuccessfullySent = useCallback(() => {
-    navigate({
-      routeName: NavigationRoutes.confirmPhone,
-      params: redirectPartyId
-        ? {
-            redirectPartyId,
-          }
-        : undefined,
-    })
-  }, [navigate, redirectPartyId])
-  if (user || loading) return <LoadingScreen delay={0} />
+  if (user || loading) {
+    return (
+      <LoadingScreen
+        delay={0}
+        text={user ? 'Get ready to party...' : 'Beep boop.'}
+      />
+    )
+  }
 
   return (
-    <PhoneScreen
-    // backgroundColor="#1DB954"
-    // {...{
-    //   title: `Sign in to continue`,
-    //   message: `We'll text you a code to confirm it's you.`,
-    //   disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
-    //   buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
-    // }}
-    // // no header on mobile: let react navigation handle that
-    // renderHeader={Platform.OS === 'web' ? undefined : null}
-    // onSmsSuccessfullySent={onSmsSuccessfullySent}
+    <AuthFlow
+      phoneScreenProps={{
+        message: "We'll text you a code to confirm it's you.",
+        disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
+        buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
+      }}
+      // backgroundColor="#1DB954"
+      // {...{
+      //   title: `Sign in to continue`,
+      //   message: `We'll text you a code to confirm it's you.`,
+      //   disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
+      //   buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
+      // }}
+      // // no header on mobile: let react navigation handle that
+      // renderHeader={Platform.OS === 'web' ? undefined : null}
+      // onSmsSuccessfullySent={onSmsSuccessfullySent}
     />
   )
 }

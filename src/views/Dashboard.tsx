@@ -31,7 +31,7 @@ const Dashboard = () => {
           <ColorCard
             icon="ios-add-circle"
             text="New Party"
-            description="Become the DJ of a virtual Spotify party. Invite friends to hear your songs in real-time."
+            description="Become the DJ of a virtual Spotify party. Invite friends to listen to your songs in real-time."
           ></ColorCard>
         </Card>
         <Card>

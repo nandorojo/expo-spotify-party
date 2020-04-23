@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import ColorCard from '../components/Color-Card'
 import { useMe } from '../api/hooks/use-me'
 import { Text, ScrollView } from 'react-native'
 import LoadingScreen from './Loading-Screen'
 import { User } from '../api/user'
+// @ts-ignore
 import Entypo from '@expo/vector-icons/Entypo'
 import { ThemeUi, ThemeProps } from '../theme'
 import { useTheme } from 'styled-components'
@@ -13,6 +14,7 @@ import { Spotify } from '../api/spotify'
 import { NavigationRoutes } from '../navigation/routes'
 import { useRouting } from 'expo-next-react-navigation'
 import { Avatar } from 'react-native-elements'
+import { Party } from '../api/party'
 
 const Card = styled.View`
   margin-bottom: ${({ theme }: ThemeProps) => theme.spacing[2]}px;
@@ -26,15 +28,80 @@ const Account = () => {
   })
   const { navigate } = useRouting()
 
-  if (error) return <Text style={{ padding: 50 }}>Error 🚨</Text>
-  if (!data) return <LoadingScreen text="🏄🏾‍♂️" />
-
   const hasSpotify = User.hasSpotifyAccountLinked(data)
+  const partySubscribedToId = data?.subscribed_to?.uid
+  const isInAParty = !!partySubscribedToId
+  const isDJ = data?.is_dj
+
+  const renderSections = useCallback(() => {
+    if (hasSpotify) {
+      if (isInAParty) {
+        return (
+          <ColorCard
+            text="🎧 You're in a party!"
+            description="Open it to see who else is listening."
+            marginBottom={2}
+            onPress={() =>
+              navigate({
+                routeName: NavigationRoutes.party,
+                params: { id: partySubscribedToId },
+              })
+            }
+          />
+        )
+      }
+      if (isDJ) {
+        return (
+          <ColorCard
+            text="🎧 You're the DJ!"
+            description="Open your party to invite friends and see who is listening."
+            marginBottom={2}
+            onPress={() =>
+              navigate({
+                routeName: NavigationRoutes.party,
+                params: { id: User.me.id },
+              })
+            }
+          />
+        )
+      }
+      return (
+        <>
+          <ColorCard
+            icon="ios-add-circle"
+            text="New Party"
+            description="Become the DJ of a virtual Spotify party. Invite friends to listen to your songs in real-time."
+            marginBottom={2}
+            onPress={async () => {
+              const { success } = await Party.create()
+              if (success) {
+                navigate({
+                  routeName: NavigationRoutes.party,
+                  params: { id: User.me.id },
+                })
+              }
+            }}
+          />
+
+          <ColorCard
+            color="secondary"
+            icon="ios-musical-note"
+            text="Join Party"
+            description="If your friend already started a party, you can listen to their songs in real-time."
+            marginBottom={2}
+          />
+        </>
+      )
+    }
+    return null
+  }, [hasSpotify, isDJ, isInAParty, navigate, partySubscribedToId])
+
+  if (error) return <Text style={{ padding: 50 }}>Error 🚨</Text>
+  if (!data) return <LoadingScreen />
 
   console.log('account screen', { hasSpotify })
 
   const profilePictureUrl = data.images?.[0].url
-
   return (
     <ScrollView>
       <Container>
@@ -55,11 +122,12 @@ const Account = () => {
             }
           />
         </Card>
+        {renderSections()}
         <Card>
           <ColorCard
-            color={hasSpotify ? 'primary' : 'alert'}
+            color={hasSpotify ? 'muted' : 'alert'}
             text={data.display_name ?? 'Spotify'}
-            type="outlined"
+            // type="outlined"
             onPress={
               !hasSpotify
                 ? () => {
@@ -75,7 +143,7 @@ const Account = () => {
                 ? ({ size }) => (
                     <Entypo
                       name="spotify"
-                      color={theme.colors.text}
+                      color={ThemeUi.colors.text}
                       size={size}
                     />
                   )
@@ -83,7 +151,7 @@ const Account = () => {
             }
             description={
               hasSpotify
-                ? 'Your Spotify has successfully connected.'
+                ? 'Spotify successfully connected.'
                 : 'Your Spotify account is not integrated. Click here to add it.'
             }
           />
@@ -93,4 +161,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default React.memo(Account)

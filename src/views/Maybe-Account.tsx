@@ -4,7 +4,7 @@ import LoadingScreen from './Loading-Screen'
 import Account from './Account'
 import { useRouting } from 'expo-next-react-navigation'
 import { NavigationRoutes } from '../navigation/routes'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView } from 'react-native'
 import { Container } from '../components/Container'
 import ColorCard from '../components/Color-Card'
 
@@ -20,8 +20,8 @@ export default function MaybeAccount() {
       <Container>
         {/*<ColorCard color="muted" text="👋 Welcome" marginBottom={2} />*/}
         <ColorCard
-          text="Sign In"
-          description="Jump right back in."
+          text="Get Started"
+          description="Start listening to songs with friends in seconds."
           color="primary"
           onPress={() =>
             navigate({
@@ -31,6 +31,16 @@ export default function MaybeAccount() {
           marginBottom={2}
         />
         <ColorCard
+          text="How it works"
+          // description="Share your Spotify Party link with friends to listen to music together in real-time."
+          color="muted"
+          description={`👋 Create an account.
+          
+🥳 Create a Spotify party.
+
+🎹 Share your party link with friends & listen to music together in real-time.`}
+        />
+        {/*<ColorCard
           text="Create Account"
           description="It takes about 28 seconds."
           color="secondary"
@@ -50,7 +60,7 @@ export default function MaybeAccount() {
               routeName: NavigationRoutes.auth,
             })
           }
-        />
+        />*/}
       </Container>
     </ScrollView>
   )

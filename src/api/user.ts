@@ -11,11 +11,11 @@ export class User {
       handle,
     })
   }
-  static hasOnboarded(user: UserSchema) {
-    return !!user.handle
+  static hasOnboarded(user?: UserSchema) {
+    return !!user?.handle
   }
-  static hasSpotifyAccountLinked(user: UserSchema) {
-    return !!user.has_auth
+  static hasSpotifyAccountLinked(user?: UserSchema | null) {
+    return !!user?.has_auth
   }
   static async get() {
     // try {

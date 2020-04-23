@@ -17,6 +17,7 @@ import ConfirmPhone from '../../views/Confirm-Phone'
 import { useAuthGate } from 'react-native-doorman'
 import SpotifyAuthStack from './spotify-auth-stack'
 import SignOutMobileOnly from '../../components/Sign-Out'
+import MaybeParty from '../../views/Maybe-Party'
 
 type AccountStackParams = {
   dashboard: undefined
@@ -36,6 +37,9 @@ type AccountStackParams = {
   // }
   auth?: {
     redirectPartyId?: string
+  }
+  party: {
+    id: string
   }
 }
 
@@ -59,10 +63,8 @@ export function AccountStack({ initialRouteName }: Props) {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLargeTitle: true,
         headerTintColor: ThemeUi.colors.text,
         headerStyle: { backgroundColor: ThemeUi.colors.background },
-        headerRight: () => <SignOutMobileOnly />,
         contentStyle: {
           backgroundColor: ThemeUi.colors.background,
           // flex: 1,
@@ -75,7 +77,11 @@ export function AccountStack({ initialRouteName }: Props) {
       <Stack.Screen
         name={NavigationRoutes.account}
         component={MaybeAccount}
-        options={() => ({ title: 'Account' })}
+        options={() => ({
+          title: 'Spotify Party',
+          headerLargeTitle: true,
+          headerRight: () => <SignOutMobileOnly />,
+        })}
       />
       {/* <Stack.Screen
         name={NavigationRoutes.auth}
@@ -95,6 +101,13 @@ export function AccountStack({ initialRouteName }: Props) {
         name={NavigationRoutes.spotifyAuth}
         options={{ stackPresentation: 'modal' }}
         component={SpotifyAuthStack}
+      />
+      <Stack.Screen
+        options={() => ({
+          title: 'Party',
+        })}
+        name={NavigationRoutes.party}
+        component={MaybeParty}
       />
       {/*
       <Stack.Screen

@@ -5,7 +5,7 @@ import { useFuego } from '@nandorojo/fuego'
 
 export const useUser = (
   id: string,
-  info: Parameters<typeof useDocument>['1']
+  info?: Parameters<typeof useDocument>['1']
 ) => {
   // return useDocument<Document<UserSchema>>(new User({ id }).path, info)
   const { data, ...response } = useFuego<Document<UserSchema>>({

@@ -88,21 +88,16 @@ const AccountTab = () => <AccountStack initialRouteName="account" />
 export default function MainTabs() {
   return (
     <Tab.Navigator
-      tabBar={props => (
-        <AnimatedTabBar
-          style={{ backgroundColor: ThemeUi.colors.muted }}
-          tabs={tabs}
-          {...props}
-        />
-      )}
+      tabBar={props =>
+        null && (
+          <AnimatedTabBar
+            style={{ backgroundColor: ThemeUi.colors.muted }}
+            tabs={tabs}
+            {...props}
+          />
+        )
+      }
     >
-      <Tab.Screen
-        name={NavigationRoutes.dashboard}
-        options={() => ({
-          title: 'Home',
-        })}
-        component={DashboardTab}
-      />
       {/*<Tab.Screen
         name={NavigationRoutes.dashboard}
         options={() => ({
@@ -123,6 +118,13 @@ export default function MainTabs() {
           title: 'Account',
         })}
         component={AccountTab}
+      />
+      <Tab.Screen
+        name={NavigationRoutes.dashboard}
+        options={() => ({
+          title: 'Home',
+        })}
+        component={DashboardTab}
       />
     </Tab.Navigator>
   )
