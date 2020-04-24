@@ -16,6 +16,7 @@ const LogoText = styled.Text`
   font-size: ${({ theme }: ThemeProps) => theme.fontSizes[2]}px;
   color: ${({ theme }: ThemeProps) => theme.colors.primary};
   font-style: italic;
+  font-weight: ${({ theme }: ThemeProps) => theme.fontWeights.bold};
 `
 
 const SignOut = styled.Text`
@@ -40,7 +41,7 @@ const Header = () => {
               Sign Out
             </SignOut>
           ) : (
-            <Link passHref href="/auth">
+            <Link prefetch={true} passHref href="/auth">
               <SignOut accessibilityRole="link">Sign In</SignOut>
             </Link>
           )}

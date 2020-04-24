@@ -19,8 +19,8 @@ function Auth<T extends { routeName: string }>() {
   const { navigate } = useRouting()
   const { user, loading } = useAuthGate()
   useEffect(() => {
-    console.log('prefetching confirm screen')
-    prefetch(NavigationRoutes.confirmPhone)
+    console.log('prefetching account screen')
+    prefetch(NavigationRoutes.account)
   }, [prefetch])
   useAuthStateChanged(async user => {
     if (!user) return console.log('no user here...')
@@ -75,6 +75,7 @@ function Auth<T extends { routeName: string }>() {
         message: "We'll text you a code to confirm it's you.",
         disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
         buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
+        headerText: 'Get Started',
       }}
       backgroundColor={ThemeUi.colors.primary}
     />

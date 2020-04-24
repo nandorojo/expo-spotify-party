@@ -5,7 +5,13 @@ import { useAuthGate } from 'react-native-doorman'
 import { useGetParty } from '../api/hooks/use-get-party'
 import LoadingScreen from './Loading-Screen'
 
-import JoinParty from './Join-Party'
+// import JoinParty from './Join-Party'
+
+import dynamic from 'next/dynamic'
+const JoinParty = dynamic(() => import('./Join-Party'), {
+  loading: () => <LoadingScreen />,
+  ssr: false,
+})
 
 import Party from './Party'
 import { useMe } from '../api/hooks/use-me'
