@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { User } from '../user'
 
 export const useCreateUser = ({
@@ -8,8 +8,6 @@ export const useCreateUser = ({
   const [status, setStatus] = useState<
     'none' | 'loading' | 'error' | 'success'
   >()
-  const callback = useRef(onSuccess)
-  // useEffect()
 
   const create = useCallback(async () => {
     try {

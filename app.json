@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pretty.spotifyparty"
+      "bundleIdentifier": "com.prettyinc.spotifyparty"
     },
     "scheme": "spotifyparty"
   }

@@ -8,8 +8,6 @@ import { NavigationRoutes } from '../routes'
 import AuthenticateSpotify from '../../views/Authenticate-Spotify'
 import Onboarding from '../../views/Create-User'
 import { ThemeUi } from '../../theme'
-import { createStackNavigator } from '@react-navigation/stack'
-import { useAuthGate } from 'react-native-doorman'
 // import { Platform } from 'react-native'
 
 type AuthStackParams = {

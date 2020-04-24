@@ -1,4 +1,3 @@
-import { useUser } from './use-user'
 import { useDocument, Document } from '@nandorojo/swr-firestore'
 import { User } from '../user'
 import { UserSchema } from '../../schema/user-schema'

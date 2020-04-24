@@ -2,10 +2,8 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    // "lib": ["dom", "esnext"],
+    "lib": ["es6"],
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
@@ -21,11 +19,10 @@
   },
   "exclude": [
     "node_modules",
-    "src/packages"
+    "node_modules/**/*",
+    "src/packages",
+    "node_modules/react-native-screens/native-stack/index.tsx"
   ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_document.js"],
+  "files": ["node_modules/typescript/lib/lib.es6.d.ts"]
 }

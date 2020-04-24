@@ -1,7 +1,4 @@
-import { useAsync } from 'react-async-hook'
 import { Spotify } from '../spotify'
-import * as AuthSession from 'expo-auth-session'
-import { empty } from '../../helpers/empty'
 import { useState, useEffect } from 'react'
 
 export const useGetSpotifyAuthUrl = () => {

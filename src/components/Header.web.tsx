@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components/native'
 import { ThemeProps } from '../theme'
 import { Container } from './Container'
-import Button from './Button'
 import { Row } from '@nandorojo/bootstrap'
 import Link from 'next/link'
 import { useAuthGate, useMaybeDoormanUser } from 'react-native-doorman'
@@ -23,8 +22,6 @@ const SignOut = styled.Text`
   font-weight: ${({ theme }: ThemeProps) => theme.fontWeights.bold};
   color: ${({ theme }: ThemeProps) => theme.colors.text};
 `
-
-const Btn = styled(Button)``
 
 const Header = () => {
   const { loading } = useAuthGate()

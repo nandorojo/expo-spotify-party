@@ -17,8 +17,10 @@ export class User {
   static hasSpotifyAccountLinked(user?: UserSchema | null) {
     return !!user?.has_auth
   }
+  /**
+   * Make this a non-static method, and replace `User.get()` with `User.me.get()`.
+   */
   static async get() {
-    // try {
     const document = await fuego.db
       .doc(`${User.collection}/${User.me.id}`)
       .get()
@@ -28,33 +30,45 @@ export class User {
       id: document.id,
       exists: document.exists,
     }
-    // } catch (e) {
-    //   return console.error(`User.hasOnboarded: ${e}`)
-    // }
   }
   static get me() {
-    return new User({ id: fuego.auth().currentUser?.uid })
+    const id = fuego.auth().currentUser?.uid
+    if (!id) {
+      console.warn(
+        '[User.me]: tried to get the current user UID, but it does not exist.'
+      )
+    }
+    return new User({ id })
   }
-  // static get uid() {
-  //   return fuego.auth().currentUser?.uid
-  // }
 
   public id: string
   constructor({ id }: { id: string }) {
     this.id = id
   }
+
   get path() {
     return `${User.collection}/${this.id}`
   }
   editHandle({ handle }: Pick<UserSchema, 'handle'>) {
-    // don't use set(), because it should fail if it doesn't exist, not create a new doc.
+    // don't use set()
+    // why? it should fail if it doesn't exist, not create a new doc.
+    // If the doc shouldn't exist yet, use `User.create` instead.
     return fuego.db.doc(`${User.collection}/${this.id}`).update({ handle })
   }
-  mutate(updatedUser: Partial<UserSchema>, shouldRevalidate = true) {
-    return mutate(
-      this.path,
+  /**
+   *
+   * @param updatedUser Partial user dictionary with fields to update.
+   * @param shouldRevalidate
+   */
+  mutate(updatedUser: Partial<UserSchema>, shouldRevalidate = false) {
+    /**
+     * 🚨 TODO update the `@nandorojo/swr-firestore` library to not include `listen` in the key.
+     *
+     * Whether or not it's a listener shouldn't affect the query. Hmm....Ref object?
+     */
+    const withListener = mutate(
+      [this.path, true],
       (user: Partial<UserSchema> = empty.object) => {
-        console.log('mutating user', { user, updatedUser, path: this.path })
         return {
           ...user,
           ...updatedUser,
@@ -62,5 +76,16 @@ export class User {
       },
       shouldRevalidate
     )
+    const noListener = mutate(
+      [this.path, false],
+      (user: Partial<UserSchema> = empty.object) => {
+        return {
+          ...user,
+          ...updatedUser,
+        }
+      },
+      shouldRevalidate
+    )
+    return Promise.all([withListener, noListener])
   }
 }

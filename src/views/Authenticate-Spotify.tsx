@@ -12,6 +12,7 @@ import styled from 'styled-components/native'
 import { ThemeProps, ThemeUi } from '../theme'
 import { Button } from 'react-native-elements'
 import { Container } from '../components/Container'
+// @ts-ignore
 import Entypo from '@expo/vector-icons/Entypo'
 import ColorCard from '../components/Color-Card'
 
@@ -27,10 +28,9 @@ const AuthenticateSpotify = () => {
   console.log('here')
   const { result, loading } = useGetSpotifyAuthUrl()
   const { loading: authLoading } = useAuthGate()
-  const [user, signOut] = useMaybeDoormanUser()
-  const { authenticate, status } = useSpotifyAuth({ authUrl: result?.url })
-  const { navigate, getParam, popToTop } = useRouting()
-  const { pop } = useNavigation()
+  const [user] = useMaybeDoormanUser()
+  const { authenticate } = useSpotifyAuth({ authUrl: result?.url })
+  const { navigate, getParam } = useRouting()
   const redirectPartyId = getParam('redirectPartyId')
 
   // useAuthStateChanged((user, loading) => {

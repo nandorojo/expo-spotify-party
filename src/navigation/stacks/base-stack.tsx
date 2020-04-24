@@ -5,13 +5,9 @@ import Party from '../../views/Party'
 import Onboarding from '../../views/Create-User'
 import { NavigationRoutes } from '../routes'
 import AuthenticateSpotify from '../../views/Authenticate-Spotify'
-import Home from '../../../pages'
-import { Text, Platform } from 'react-native'
 import { ThemeUi } from '../../theme'
-import { createStackNavigator } from '@react-navigation/stack'
 import Dashboard from '../../views/Dashboard'
 import MaybeAccount from '../../views/Maybe-Account'
-import { fuego } from '../../api/fuego'
 
 type BaseStackParams = {
   party: {

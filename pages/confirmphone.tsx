@@ -8,7 +8,7 @@ export default function ConfirmPhone() {
   const redirectPartyId = getParam<string | undefined>('redirectPartyId')
   useEffect(() => {
     if (redirectPartyId) {
-      prefetch(`NavigationRoutes.party/${redirectPartyId}`)
+      prefetch(`/${NavigationRoutes.party}/${redirectPartyId}`)
     } else {
       prefetch(NavigationRoutes.onboarding)
     }

@@ -1,29 +1,14 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useRouting } from 'expo-next-react-navigation'
-import dynamic from 'next/dynamic'
-import LoadingScreen from './Loading-Screen'
 
-// const Screen = dynamic(() => import('../components/Phone-Screen'), {
-//   // ssr: false,
-//   loading: () => <LoadingScreen />,
-// })
 import { AuthFlow } from 'react-native-doorman'
-// const { PhoneScreen } = AuthFlow
-import { User } from '../api/user'
 import { NavigationRoutes } from '../navigation/routes'
-import { useAuthStateChanged } from '../hooks/useAuthStateChanged'
-import { useAuthGate } from 'react-native-doorman'
-import { Platform, StyleSheet } from 'react-native'
-
-// type Props<T extends { routeName: string }> = {
-//   redirect?: T
-// }
+import { StyleSheet } from 'react-native'
 
 function PhoneScreen<T extends { routeName: string }>() {
   const { getParam } = useRouting()
   const redirectPartyId = getParam<T>('redirectPartyId')
-  // const authType = getParam<'sign in' | 'sign up' | undefined>('authType')
-  const { navigate, push } = useRouting()
+  const { navigate } = useRouting()
   const onSmsSuccessfullySent = useCallback(() => {
     console.log('text sent, will navigate')
     navigate({
@@ -36,7 +21,6 @@ function PhoneScreen<T extends { routeName: string }>() {
         : undefined,
     })
   }, [navigate, redirectPartyId])
-  console.log('here on auth!!')
 
   return (
     <AuthFlow.PhoneScreen
@@ -47,8 +31,6 @@ function PhoneScreen<T extends { routeName: string }>() {
         disclaimer: `We'll never spam you. Reply "Chill" to stop texts.`,
         buttonText: redirectPartyId ? 'Join Party 🎸' : undefined,
       }}
-      // no header on mobile: let react navigation handle that
-      renderHeader={Platform.OS === 'web' ? undefined : null}
       onSmsSuccessfullySent={onSmsSuccessfullySent}
       containerStyle={styles.container}
     />
@@ -56,10 +38,7 @@ function PhoneScreen<T extends { routeName: string }>() {
 }
 
 const styles = StyleSheet.create({
-  container: Platform.select({
-    web: undefined,
-    default: { width: '100%' },
-  }),
+  container: { width: '100%' },
 })
 
 export default PhoneScreen

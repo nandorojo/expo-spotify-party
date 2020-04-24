@@ -4,7 +4,9 @@ import AnimatedTabBar from '@gorhom/animated-tabbar'
 import { NavigationRoutes } from '../routes'
 import Home from '../../../pages/index'
 import { TextStyle } from 'react-native'
+// @ts-ignore
 import Ionicons from '@expo/vector-icons/Ionicons'
+// @ts-ignore
 import Entypo from '@expo/vector-icons/Entypo'
 import { BaseStack } from '../stacks/base-stack'
 import { ThemeUi } from '../../theme'
@@ -79,7 +81,7 @@ const tabs: TabsConfigsType<MainTabsParams> = {
 type MainTabsParams = {
   dashboard: undefined
   account: undefined
-  spotifyAuth: undefined
+  // spotifyAuth: undefined
 }
 
 const Tab = createBottomTabNavigator<MainTabsParams>()

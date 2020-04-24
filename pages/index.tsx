@@ -1,9 +1,6 @@
-// @generated: @expo/next-adapter@2.0.31
 import React from 'react'
-import { StyleSheet, Text, View, Platform } from 'react-native'
-import { useMaybeDoormanUser, useAuthGate } from 'react-native-doorman'
-import { useRouting } from 'expo-next-react-navigation'
-import { NavigationRoutes } from '../src/navigation/routes'
+import { StyleSheet, Text, View } from 'react-native'
+import { useAuthGate } from 'react-native-doorman'
 import dynamic from 'next/dynamic'
 const MaybeAccount = dynamic(() => import('../src/views/Maybe-Account'), {
   loading: () => <LoadingScreen />,
@@ -11,11 +8,9 @@ const MaybeAccount = dynamic(() => import('../src/views/Maybe-Account'), {
 })
 import LoadingScreen from '../src/views/Loading-Screen'
 import { ThemeUi } from '../src/theme'
-// import * as WebBrowser from 'expo-web-browser'
 
 export default function Home() {
   const { user, loading } = useAuthGate()
-  const { navigate } = useRouting()
   if (loading) return <LoadingScreen />
   if (user) return <MaybeAccount />
 

@@ -8,7 +8,7 @@ const AuthFlow = dynamic(() => import('../src/components/Auth-Flow'), {
 })
 import { User } from '../src/api/user'
 import { NavigationRoutes } from '../src/navigation/routes'
-import { useAuthStateChanged } from '../src/hooks/useAuthStateChanged'
+import { useAuthStateChanged } from '../src/hooks/use-auth-state-changed'
 import { useAuthGate } from 'react-native-doorman'
 import { ThemeUi } from '../src/theme'
 
@@ -20,7 +20,7 @@ function Auth<T extends { routeName: string }>() {
   const { user, loading } = useAuthGate()
   useEffect(() => {
     console.log('prefetching account screen')
-    prefetch(NavigationRoutes.account)
+    prefetch(`/${NavigationRoutes.account}`)
   }, [prefetch])
   useAuthStateChanged(async user => {
     if (!user) return console.log('no user here...')

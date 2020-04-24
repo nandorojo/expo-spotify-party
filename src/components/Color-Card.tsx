@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import styled, { useTheme } from 'styled-components/native'
 import { ThemeProps, ThemeUi } from '../theme'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { Row } from '@nandorojo/bootstrap'
 // @ts-ignore
 import Ionicons from '@expo/vector-icons/Ionicons'

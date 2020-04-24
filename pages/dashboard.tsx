@@ -1,6 +1,4 @@
-// export { default } from '../src/views/Loading-Screen'
 import React from 'react'
-// import MaybeAccount from '../src/views/Maybe-Account'
 import dynamic from 'next/dynamic'
 const MaybeAccount = dynamic(() => import('../src/views/Maybe-Account'), {
   loading: () => <LoadingScreen delay={0} />,
@@ -15,7 +13,7 @@ export default () => {
   const { prefetch } = useRouting()
 
   useEffect(() => {
-    prefetch(NavigationRoutes.auth)
+    prefetch(`/${NavigationRoutes.auth}`)
   }, [prefetch])
 
   return <MaybeAccount />

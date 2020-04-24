@@ -1,25 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AppProps } from 'next/app'
-import { Platform } from 'react-native'
-
 import Providers from '../src/providers'
 import styled from 'styled-components/native'
 import { ThemeProps } from '../src/theme'
 import Header from '../src/components/Header.web'
+// @ts-ignore
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
-if (Platform.OS === 'web' && process.browser) {
-  if (location.protocol !== 'https:' && process.env.NODE_ENV !== 'production') {
+// fix the setImmediate usage from react-native-reanimated
+import 'setimmediate'
+
+// fix SSR "location is not defined error"
+if (canUseDOM) {
+  if (location.protocol !== 'https:' && __DEV__) {
     console.warn(
-      'This app requires HTTPS. Try cancelling this session and running yarn https.'
+      'WebBrowser.. Try cancelling this session and running yarn https.'
     )
   } else {
     const WebBrowser = require('expo-web-browser')
     WebBrowser.maybeCompleteAuthSession()
   }
 }
-
-// @ts-ignore
-global.setImmediate = setTimeout
 
 const Wrapper = styled.View`
   flex: 1;
