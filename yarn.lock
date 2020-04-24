@@ -1373,6 +1373,14 @@
     xmlbuilder "^14.0.0"
     xmldom "~0.1.31"
 
+"@expo/react-native-action-sheet@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@expo/react-native-action-sheet/-/react-native-action-sheet-3.6.0.tgz#8207ff460c8795ca9040e6d85daed63db6b3ac58"
+  integrity sha512-sAxQZ57iGkn/nKHvJoj51KIvnVx9RdMTpk2lKlo3FKPaezLWsdK0P9zLI/xG3NrD6CRr9tt3oK0silYi61VvZA==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.1"
+    hoist-non-react-statics "^3.3.0"
+
 "@expo/spawn-async@1.5.0", "@expo/spawn-async@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@expo/spawn-async/-/spawn-async-1.5.0.tgz#799827edd8c10ef07eb1a2ff9dcfe081d596a395"
@@ -2109,10 +2117,10 @@
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-"@nandorojo/swr-firestore@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.0.5.tgz#fd2df695d6e7f5b948551a4e3b4b749adfbe1557"
-  integrity sha512-y1KqB5GLAliMptKwgebhzzG9pCB7DvxN+uLubN6GSO0FiFTBR1C9bvVjhrQg4A2wHvpndcDRI2fGOo4laqvr5w==
+"@nandorojo/swr-firestore@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.1.1.tgz#eba340136f9c0b97c0f4ec948915319879b5dbcd"
+  integrity sha512-q3DMQbJ/bPo2RpIIFm5j4w87sYp+GobA+LbtYTjWlIj3XorxReJZL3BATaUU8wQeIQ3rAhoW5AdaVHKUIHa3bg==
   dependencies:
     swr "^0.2.0"
     use-memo-one "^1.1.1"
@@ -2360,7 +2368,7 @@
   resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.36.tgz#17ce0a235e9ffbcdcdf5095646b374c2bf615a4c"
   integrity sha512-7TUK/k2/QGpEAv/BCwSHlYu3NXZhQ9ZwBYpzr9tjlPIL2C5BeGhH3DmVavRx3ZNyELX5TLC91JTz/cen6AAtIQ==
 
-"@types/hoist-non-react-statics@*":
+"@types/hoist-non-react-statics@*", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
   integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==

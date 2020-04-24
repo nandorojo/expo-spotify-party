@@ -21,8 +21,12 @@ const MaybeParty = () => {
 
   const { user: authUser, loading: authLoading } = useAuthGate()
   // const { data: me, loading: meLoading } = useMe({ listen: true })
-  const { data: me, error } = useDocument<Document<UserSchema>>(User.me.path, {
-    refreshInterval: 2000,
+  // const { data: me, error } = useDocument<Document<UserSchema>>(User.me.path, {
+  //   refreshInterval: 2000,
+  // })
+  const { data: me, error } = useMe({
+    listen: true,
+    // re
   })
   const meLoading = !me && !error
 
@@ -30,7 +34,7 @@ const MaybeParty = () => {
   const iAmDj = id === authUser?.uid
   const hasSpotify = !!(me && User.hasSpotifyAccountLinked(me))
 
-  if (authLoading || meLoading) return <LoadingScreen />
+  if (authLoading) return <LoadingScreen />
 
   if (!id) return <JoinParty />
 

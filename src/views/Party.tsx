@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDoormanUser } from 'react-native-doorman'
-import { FlatList, StyleSheet } from 'react-native'
+import { FlatList, Clipboard, Share } from 'react-native'
 import { useGetParty } from '../api/hooks/use-get-party'
 import { usePartySubscribers } from '../api/hooks/use-party-members'
 import { UserSchema } from '../schema/user-schema'
@@ -18,6 +18,7 @@ import { NavigationRoutes } from '../navigation/routes'
 import { PartySubscriberItem } from '../components/Party-Subscriber-Item'
 import { Row, Col } from '@nandorojo/bootstrap'
 import { Party as PartyClass } from '../api/party'
+import { useActionSheet } from '@expo/react-native-action-sheet'
 
 type Props = {
   id: string
@@ -26,7 +27,9 @@ type Props = {
 }
 
 const Empty = styled.Text`
+  color: ${({ theme }: ThemeProps) => theme.colors.text};
   font-size: ${({ theme }: ThemeProps) => theme.fontSizes[2]}px;
+  margin: ${({ theme }: ThemeProps) => theme.spacing[6]}px 0;
 `
 
 const Wrapper = styled(Container)`
@@ -48,8 +51,8 @@ const ListTitle = styled.Text`
   margin-bottom: ${({ theme }: ThemeProps) => theme.spacing[2]}px;
 `
 
-const Column = styled(Col)`
-  &: first-of-type;
+const ListFooter = styled.View`
+  margin: ${({ theme }: ThemeProps) => theme.spacing[2]}px 0;
 `
 
 const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
@@ -65,6 +68,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
   const { navigate } = useRouting()
 
   const { uid } = useDoormanUser()
+  const { showActionSheetWithOptions } = useActionSheet()
 
   const renderItem = useCallback(
     ({ item }: { item: Document<UserSchema> }) => {
@@ -96,30 +100,59 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
     const actions = () => {
       return (
         <StyledRow>
-          <Col style={{ marginRight: ThemeUi.spacing[1] / 2 }}>
-            <Btn color="secondary" variant="small" title="Share Party" />
-          </Col>
-          <Col style={{ marginLeft: ThemeUi.spacing[1] / 2 }}>
+          <Col>
             <Btn
-              color="muted"
+              color="secondary"
               variant="small"
-              title={iAmDj ? 'End Party' : 'Leave'}
-              onPress={async () => {
-                if (iAmDj) {
-                  const { success } = await PartyClass.end()
-                  console.log('[party-ended]: ', { success })
-                  navigate({
-                    routeName: NavigationRoutes.account,
-                  })
-                } else {
-                  await PartyClass.unsubscribe()
-                  navigate({
-                    routeName: NavigationRoutes.account,
-                  })
-                }
+              title="Share Party"
+              onPress={() => {
+                const options = ['Copy URL', 'Share via...', 'Cancel']
+                // const destructiveButtonIndex = 0;
+                const cancelButtonIndex = 2
+                showActionSheetWithOptions(
+                  {
+                    options,
+                    cancelButtonIndex,
+                  },
+                  (index: number) => {
+                    const url = PartyClass.shareUrl({ id })
+                    if (index === 0) Clipboard.setString(url)
+                    else if (index === 1)
+                      Share.share(
+                        {
+                          url,
+                          title: 'Join my Spotify Party!',
+                          message:
+                            'Hey open this so we can listen to music together remotely',
+                        },
+                        {
+                          dialogTitle: 'Invite friends to join your party!',
+                          tintColor: ThemeUi.colors.primary,
+                          // subject: "We can listen to music in sync with each other."
+                        }
+                      )
+                  }
+                )
               }}
             />
           </Col>
+          {!iAmDj && (
+            <Col style={{ marginLeft: ThemeUi.spacing[1] }}>
+              <Btn
+                color="primary"
+                variant="small"
+                title={'Sync Music'}
+                onPress={async () => {
+                  if (djHandle) {
+                    alert(
+                      'Make sure your Spotify app is already playing music, then press Sync.'
+                    )
+                    new PartyClass({ handle: djHandle }).subscribe()
+                  }
+                }}
+              />
+            </Col>
+          )}
         </StyledRow>
       )
     }
@@ -160,8 +193,37 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
     djImage,
     iAmDj,
     renderDJImage,
+    showActionSheetWithOptions,
     subscribersLength,
   ])
+
+  const ListFooterComponent = useCallback(() => {
+    if (djLoading || subscribersLoading) return null
+
+    return (
+      <ListFooter>
+        <Btn
+          color="muted"
+          variant="small"
+          title={iAmDj ? 'End Party' : 'Leave Party'}
+          onPress={async () => {
+            if (iAmDj) {
+              const { success } = await PartyClass.end()
+              console.log('[party-ended]: ', { success })
+              navigate({
+                routeName: NavigationRoutes.account,
+              })
+            } else {
+              await PartyClass.unsubscribe()
+              navigate({
+                routeName: NavigationRoutes.account,
+              })
+            }
+          }}
+        />
+      </ListFooter>
+    )
+  }, [djLoading, iAmDj, navigate, subscribersLoading])
 
   if (error) {
     return (
@@ -218,11 +280,34 @@ Think that's a mistake? Try searching for the party again.`}
             <Empty>No one is listening yet...</Empty>
           )
         }
+        ListFooterComponent={ListFooterComponent}
         // contentContainerStyle={styles.list}
       />
     </Wrapper>
   )
 }
+
+const HeaderRight = () => {
+  const { getParam, navigate } = useRouting()
+  const iAmDj = getParam<boolean | undefined>('iAmDj')
+
+  const onPress = async () => {
+    if (iAmDj) {
+      const { success } = await PartyClass.end()
+      console.log('[party-ended]: ', { success })
+      navigate({
+        routeName: NavigationRoutes.account,
+      })
+    } else {
+      await PartyClass.unsubscribe()
+      navigate({
+        routeName: NavigationRoutes.account,
+      })
+    }
+  }
+}
+
+Party.HeaderRight = HeaderRight
 
 const keyExtractor = (item: { id: string }) => item.id
 

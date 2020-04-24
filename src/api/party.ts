@@ -1,5 +1,5 @@
 import { Server } from './server'
-
+import { Linking } from 'expo'
 export class Party {
   static create() {
     return Server.post('makeDJ', {})
@@ -32,5 +32,8 @@ export class Party {
       id,
       ...response,
     }
+  }
+  static shareUrl({ id }: { id: string }) {
+    return Linking.makeUrl(`/party/${id}`)
   }
 }

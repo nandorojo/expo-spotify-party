@@ -12,7 +12,6 @@ type Props = {
 }
 
 export const usePartySubscribers = ({ uid }: Props) => {
-  console.log('useeeeeee', { uid })
   const { data, ...response } = useFuego<Document<UserSchema>>(
     useMemo(
       () => ({

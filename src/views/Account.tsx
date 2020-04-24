@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import ColorCard from '../components/Color-Card'
 import { useMe } from '../api/hooks/use-me'
 import { Text, ScrollView } from 'react-native'
@@ -21,11 +21,12 @@ const Card = styled.View`
 `
 
 const Account = () => {
-  // @ts-ignore
-  const theme: typeof ThemeUi = useTheme()
-  const { data, error } = useMe({
+  const { data, error, isValidating } = useMe({
     listen: true,
   })
+  useEffect(() => {
+    console.log('[Account]', { isValidating, data: !!data })
+  }, [isValidating, data])
   const { navigate } = useRouting()
 
   const hasSpotify = User.hasSpotifyAccountLinked(data)
@@ -103,8 +104,6 @@ const Account = () => {
 
   if (error) return <Text style={{ padding: 50 }}>Error 🚨</Text>
   if (!data) return <LoadingScreen />
-
-  console.log('account screen', { hasSpotify })
 
   const profilePictureUrl = data.images?.[0].url
   return (

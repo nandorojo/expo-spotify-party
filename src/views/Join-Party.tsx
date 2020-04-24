@@ -28,7 +28,7 @@ const Wrapper = styled(Container)`
 `
 
 const TextInputContainer = styled.View`
-  margin-top: ${({ theme }: ThemeProps) => theme.spacing[2]}px;
+  margin: ${({ theme }: ThemeProps) => theme.spacing[2]}px 0;
 `
 
 const JoinParty = () => {
@@ -51,7 +51,7 @@ const JoinParty = () => {
       <Wrapper>
         <ColorCard
           text="Join a Spotify Party"
-          description="Enter the Party ID below. If you aren't sure, try the username of the DJ."
+          description="Enter the Party ID below. If you aren't sure, try the username of the DJ.\n\nIf someone invited you with a link, try opening it again."
           color="muted"
         />
         <TextInputContainer>
