@@ -5,7 +5,7 @@ import { Container } from './Container'
 import Button from './Button'
 import { Row } from '@nandorojo/bootstrap'
 import Link from 'next/link'
-import { useAuthGate } from 'react-native-doorman'
+import { useAuthGate, useMaybeDoormanUser } from 'react-native-doorman'
 
 const Wrapper = styled.View`
   background-color: ${({ theme }: ThemeProps) => theme.colors.muted};
@@ -20,22 +20,28 @@ const LogoText = styled.Text`
 
 const SignOut = styled.Text`
   font-weight: ${({ theme }: ThemeProps) => theme.fontWeights.bold};
+  color: ${({ theme }: ThemeProps) => theme.colors.text};
 `
 
+const Btn = styled(Button)``
+
 const Header = () => {
-  const { user, loading } = useAuthGate()
+  const { loading } = useAuthGate()
+  const [user, signOut] = useMaybeDoormanUser()
   return (
     <Wrapper>
       <Container>
-        <Row justifyContent="space-between">
+        <Row justifyContent="space-between" alignItems="center">
           <Link passHref href="/dashboard">
             <LogoText accessibilityRole="link">SpotifyParty</LogoText>
           </Link>
-          {!user ? (
-            <SignOut accessibilityRole="link">Sign Out</SignOut>
+          {!!loading ? null : !!user ? (
+            <SignOut onPress={() => signOut()} accessibilityRole="link">
+              Sign Out
+            </SignOut>
           ) : (
             <Link passHref href="/auth">
-              <Button title="Sign In" />
+              <SignOut accessibilityRole="link">Sign In</SignOut>
             </Link>
           )}
         </Row>

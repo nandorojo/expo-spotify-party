@@ -3,8 +3,8 @@ import { User } from '../user'
 import { UserSchema } from '../../schema/user-schema'
 
 export const useUser = (
-  id: string,
+  id: string | null,
   info?: Parameters<typeof useDocument>['1']
 ) => {
-  return useDocument<Document<UserSchema>>(new User({ id }).path, info)
+  return useDocument<Document<UserSchema>>(id && new User({ id }).path, info)
 }

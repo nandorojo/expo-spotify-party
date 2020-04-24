@@ -15,7 +15,9 @@ const Providers = ({ children }: Props) => {
     <FuegoProvider>
       <Doorman>
         <ThemeProvider theme={ThemeUi}>
-          <ActionSheetProvider>{children}</ActionSheetProvider>
+          <ActionSheetProvider>
+            <>{children}</>
+          </ActionSheetProvider>
         </ThemeProvider>
       </Doorman>
     </FuegoProvider>

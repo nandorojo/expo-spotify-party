@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AnimatedTabBar from '@gorhom/animated-tabbar'
 import { NavigationRoutes } from '../routes'
@@ -10,6 +10,8 @@ import { BaseStack } from '../stacks/base-stack'
 import { ThemeUi } from '../../theme'
 import Animated from 'react-native-reanimated'
 import { AccountStack } from '../stacks/account-stack'
+import { Linking } from 'expo'
+import * as NavigationService from '../navigation-service'
 
 console.log({ Ionicons })
 
@@ -85,7 +87,42 @@ const Tab = createBottomTabNavigator<MainTabsParams>()
 const DashboardTab = () => <BaseStack initialRouteName="dashboard" />
 const AccountTab = () => <AccountStack initialRouteName="account" />
 
+const useDeepLinking = () => {
+  useEffect(() => {
+    const callback = ({ url }: { url: string }) => {
+      const { path, queryParams } = Linking.parse(url)
+      handle(path ?? '', queryParams)
+    }
+    const handle = (
+      path: string | null,
+      queryParams: { id?: string } | null
+    ) => {
+      console.log('[main-tabs][useDeepLinking][handle]', { path, queryParams })
+      if (path?.includes('party')) {
+        const id = path.split('party/')?.[1] ?? queryParams?.id
+        NavigationService.navigate(NavigationRoutes.party, {
+          id,
+        })
+      }
+    }
+    Linking.addEventListener('url', callback)
+    const get = async () => {
+      try {
+        const { path, queryParams } = await Linking.parseInitialURLAsync()
+        handle(path, queryParams)
+      } catch (e) {
+        console.error('linking failed', e)
+      }
+    }
+    get()
+    return () => {
+      Linking.removeEventListener('url', callback)
+    }
+  }, [])
+}
+
 export default function MainTabs() {
+  useDeepLinking()
   return (
     <Tab.Navigator
       tabBar={props =>

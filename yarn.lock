@@ -5697,20 +5697,20 @@ expo-location@~8.1.0:
   dependencies:
     invariant "^2.2.4"
 
-expo-navigation-core@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/expo-navigation-core/-/expo-navigation-core-0.3.3.tgz#6dfe4b97591bd852c59d44cf595c35e633a650c7"
-  integrity sha512-lbcKAjbi/2uP2oHg+AEyGt5lF/kIjrps+ZucaPZqwLUCU94mbIeZYtFkmOGbJuqS9kiXrTvey7PL+YFkZr9tig==
+expo-navigation-core@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/expo-navigation-core/-/expo-navigation-core-0.3.5.tgz#e237c5ab8e5697b011fbea0e9a323b78e75c63ef"
+  integrity sha512-+Xrxu1AwrG9Ez974em5lsInHMlaGm93ytha9q5++tmMOg4hq57QuCkVR6OMQbDj5U7oCPjHuhfnFov7YjMfmhg==
   dependencies:
     "@react-navigation/native" "^5.0.0-alpha.29"
     lodash "^4.17.15"
 
-expo-next-react-navigation@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/expo-next-react-navigation/-/expo-next-react-navigation-1.1.5.tgz#2cd60a0505a9d0facd3c4d2201701f7569af18ce"
-  integrity sha512-Q5VjDF4fH9uILIg6xbab28QfL0AvIL5B5E1F7Au/qIUcJLw2/+TKUgZRopRzsD1o0d3cSgcMSTzrODq1ZGNavg==
+expo-next-react-navigation@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/expo-next-react-navigation/-/expo-next-react-navigation-1.1.6.tgz#c5074fdb7febab428e7d0e560315ece07fb7145e"
+  integrity sha512-XYRzwaC1dv2hI9PcEpzgV/uX1SR0Dz7iStkP0L6ZsNvRS0wRzAMcrRX+iUi0DExKeUjrIaqzVIeSAmhm0ADyJQ==
   dependencies:
-    expo-navigation-core "^0.3.3"
+    expo-navigation-core "^0.3.5"
     lodash "^4.17.15"
     next "^9.1.5"
 

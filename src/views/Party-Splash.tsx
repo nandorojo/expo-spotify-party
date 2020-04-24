@@ -66,7 +66,7 @@ const PartySplash = (props: Props) => {
           description="Once you join, your Spotify songs will update in sync with the DJ."
           color="muted"
         >
-          <Button
+          <Btn
             loading={!!(user && hasSpotify && loading)}
             title={buttonText}
             onPress={onPress}

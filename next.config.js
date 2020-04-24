@@ -7,8 +7,10 @@ const withTM = require('next-transpile-modules')([
   'react-native-doorman',
   '@nandorojo/fuego',
   '@nandorojo/swr-firestore',
-  // 'react-native-reanimated',
+  'react-native-reanimated',
   '@nandorojo/bootstrap',
+  '@expo/react-native-action-sheet',
+  'expo',
 ])
 const withPlugins = require('next-compose-plugins')
 

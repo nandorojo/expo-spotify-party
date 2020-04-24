@@ -27,7 +27,7 @@
     "compare-urls": "^2.0.0",
     "expo": "~37.0.3",
     "expo-auth-session": "./src/packages/expo-auth-session/expo-auth-session-v1.0.0.tgz",
-    "expo-next-react-navigation": "^1.1.5",
+    "expo-next-react-navigation": "^1.1.6",
     "expo-web-browser": "^8.2.0",
     "firebase": "7.9.0",
     "next": "^9.3.5",

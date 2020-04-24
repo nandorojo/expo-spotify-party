@@ -65,7 +65,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
     data: subscribers,
     loading: subscribersLoading,
   } = usePartySubscribers({ uid: id })
-  const { navigate } = useRouting()
+  const { navigate, replace } = useRouting()
 
   const { uid } = useDoormanUser()
   const { showActionSheetWithOptions } = useActionSheet()
@@ -192,6 +192,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
     djHandle,
     djImage,
     iAmDj,
+    id,
     renderDJImage,
     showActionSheetWithOptions,
     subscribersLength,
@@ -256,7 +257,7 @@ Think that's a mistake? Try searching for the party again.`}
           <Button
             title="Search Again"
             onPress={() => {
-              navigate({
+              replace({
                 routeName: NavigationRoutes.party,
               })
             }}
