@@ -15,6 +15,7 @@ import { NavigationRoutes } from '../navigation/routes'
 import { useRouting } from 'expo-next-react-navigation'
 import { Avatar } from 'react-native-elements'
 import { Party } from '../api/party'
+import { APP_VERSION } from '../../app-version'
 
 const Card = styled.View`
   margin-bottom: ${({ theme }: ThemeProps) => theme.spacing[2]}px;
@@ -24,15 +25,17 @@ const Account = () => {
   const { data, error, isValidating } = useMe({
     listen: true,
   })
+  // console.log('[use-me]', { data: !!data })
   useEffect(() => {
-    console.log('[Account]', { isValidating, data: !!data })
+    // console.log('[Account]', { isValidating, data: !!data })
   }, [isValidating, data])
   const { navigate } = useRouting()
 
   const hasSpotify = User.hasSpotifyAccountLinked(data)
-  const partySubscribedToId = data?.subscribed_to?.uid
+  const partySubscribedToId = data?.subscribed_to?.handle
   const isInAParty = !!partySubscribedToId
   const isDJ = data?.is_dj
+  const handle = data?.handle
 
   const renderSections = useCallback(() => {
     if (hasSpotify) {
@@ -57,12 +60,17 @@ const Account = () => {
             text="🎧 You're the DJ!"
             description="Open your party to invite friends and see who is listening."
             marginBottom={2}
-            onPress={() =>
+            onPress={() => {
+              if (!handle) {
+                return alert(
+                  'You need to set a username before you can start a party.'
+                )
+              }
               navigate({
                 routeName: NavigationRoutes.party,
-                params: { id: User.me.id },
+                params: { id: handle },
               })
-            }
+            }}
           />
         )
       }
@@ -74,11 +82,11 @@ const Account = () => {
             description="Become the DJ of a virtual Spotify party. Invite friends to listen to your songs in real-time."
             marginBottom={2}
             onPress={async () => {
-              const { success } = await Party.create()
+              const { success, handle } = await Party.create()
               if (success) {
                 navigate({
                   routeName: NavigationRoutes.party,
-                  params: { id: User.me.id },
+                  params: { id: handle },
                 })
               }
             }}
@@ -100,7 +108,7 @@ const Account = () => {
       )
     }
     return null
-  }, [hasSpotify, isDJ, isInAParty, navigate, partySubscribedToId])
+  }, [handle, hasSpotify, isDJ, isInAParty, navigate, partySubscribedToId])
 
   if (error) return <Text style={{ padding: 50 }}>Error 🚨</Text>
   if (!data) return <LoadingScreen />
@@ -113,6 +121,8 @@ const Account = () => {
           <ColorCard
             color="muted"
             text={data.handle}
+            description={APP_VERSION}
+            descriptionLocation="under text"
             icon={
               profilePictureUrl
                 ? () => (

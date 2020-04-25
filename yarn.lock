@@ -2117,10 +2117,10 @@
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-"@nandorojo/swr-firestore@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.1.1.tgz#eba340136f9c0b97c0f4ec948915319879b5dbcd"
-  integrity sha512-q3DMQbJ/bPo2RpIIFm5j4w87sYp+GobA+LbtYTjWlIj3XorxReJZL3BATaUU8wQeIQ3rAhoW5AdaVHKUIHa3bg==
+"@nandorojo/swr-firestore@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.2.1.tgz#630289713472e1ffb3388a690c403a2de7b3a5df"
+  integrity sha512-Dh9tPcNj28BkJSZbxoLqvLZawXSZ3YQmF+3zyhiuOXEzfRR8SwCFuHhlirmRCDKVBlTwmXpboAYlRdmtJhw8tg==
   dependencies:
     swr "^0.2.0"
     use-memo-one "^1.1.1"

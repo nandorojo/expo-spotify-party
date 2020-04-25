@@ -68,6 +68,8 @@ type Res<A extends ActionOptions> = A extends CreateUser['action']
   ? ResponseModel<{ uid: string }>
   : A extends IsDJ['action']
   ? ResponseModel<{ uid: string; is_dj: boolean; handle: string }>
+  : A extends MakeDJ['action']
+  ? ResponseModel<{ handle: string }>
   : ResponseModel // <- general response { success, message }
 
 export class Server {

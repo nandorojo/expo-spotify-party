@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDoormanUser } from 'react-native-doorman'
 import { FlatList, Clipboard, Share } from 'react-native'
 import { useGetParty } from '../api/hooks/use-get-party'
@@ -19,6 +19,7 @@ import { PartySubscriberItem } from '../components/Party-Subscriber-Item'
 import { Row, Col } from '@nandorojo/bootstrap'
 import { Party as PartyClass } from '../api/party'
 import { useActionSheet } from '@expo/react-native-action-sheet'
+import { fuego } from '../api/fuego'
 
 type Props = {
   id: string
@@ -56,15 +57,39 @@ const ListFooter = styled.View`
 `
 
 const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
-  const { data: dj, error } = useGetParty(id, {
-    refreshInterval: 3000,
-  })
-  const djLoading = !dj && !error
+  console.log('[Party]', { id })
 
+  const { data: dj, error } = useGetParty(id, {
+    listen: true,
+  })
   const {
     data: subscribers,
     loading: subscribersLoading,
-  } = usePartySubscribers({ uid: id })
+  } = usePartySubscribers({ handle: id })
+  useEffect(() => {
+    console.log('[uid]', fuego.auth().currentUser.uid)
+    // fuego.db
+    //   .collection('users')
+    //   .where('handle', '==', 'fernando')
+    //   .get()
+    // fuego.db
+    //   .collection('users')
+    //   .where('handle', '==', 'GT3PYNaFc0S1DWRLSjF2MdvglwV2')
+    //   .get()
+    // fuego.db
+    //   .collection('users')
+    //   .where('subscribed_to.handle', '==', 'fernando')
+    //   .get()
+    //   .then(docs => {
+    //     console.log('[subscribed_to.handle] resolved!', { empty: docs.empty })
+    //     docs.forEach(doc =>
+    //       console.log('[subscribed_to.handle]: ', doc.data().handle)
+    //     )
+    //   })
+  }, [])
+  // return null
+  const djLoading = !dj && !error
+
   const { navigate, replace } = useRouting()
 
   const { uid } = useDoormanUser()
@@ -234,7 +259,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
           text="Oops"
           description={
             error?.message ??
-            "Something wen't wrong, but we're not sure what yet. 😬 Can you try refreshing?"
+            "Something went wrong, but we're not sure what yet. 😬 Can you try refreshing?"
           }
           icon="md-alert"
         />
@@ -245,6 +270,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
   const partyDefinitelyDoesNotExist = !djLoading && !dj?.is_dj
 
   if (partyDefinitelyDoesNotExist) {
+    console.log('[Party][definitelyDoesNotExist]', { dj })
     return (
       <Wrapper>
         <ColorCard
@@ -288,27 +314,27 @@ Think that's a mistake? Try searching for the party again.`}
   )
 }
 
-const HeaderRight = () => {
-  const { getParam, navigate } = useRouting()
-  const iAmDj = getParam<boolean | undefined>('iAmDj')
+// const HeaderRight = () => {
+//   const { getParam, navigate } = useRouting()
+//   const iAmDj = getParam<boolean | undefined>('iAmDj')
 
-  const onPress = async () => {
-    if (iAmDj) {
-      const { success } = await PartyClass.end()
-      console.log('[party-ended]: ', { success })
-      navigate({
-        routeName: NavigationRoutes.account,
-      })
-    } else {
-      await PartyClass.unsubscribe()
-      navigate({
-        routeName: NavigationRoutes.account,
-      })
-    }
-  }
-}
+//   const onPress = async () => {
+//     if (iAmDj) {
+//       const { success } = await PartyClass.end()
+//       console.log('[party-ended]: ', { success })
+//       navigate({
+//         routeName: NavigationRoutes.account,
+//       })
+//     } else {
+//       await PartyClass.unsubscribe()
+//       navigate({
+//         routeName: NavigationRoutes.account,
+//       })
+//     }
+//   }
+// }
 
-Party.HeaderRight = HeaderRight
+// Party.HeaderRight = HeaderRight
 
 const keyExtractor = (item: { id: string }) => item.id
 

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRouting } from 'expo-next-react-navigation'
 import { useAuthGate } from 'react-native-doorman'
 
-import { useGetParty } from '../api/hooks/use-get-party'
 import LoadingScreen from './Loading-Screen'
 
 // import JoinParty from './Join-Party'
@@ -16,35 +15,30 @@ const JoinParty = dynamic(() => import('./Join-Party'), {
 import Party from './Party'
 import { useMe } from '../api/hooks/use-me'
 import { User } from '../api/user'
-import { useDocument, Document } from '@nandorojo/swr-firestore'
-import { UserSchema } from '../schema/user-schema'
 import PartySplash from './Party-Splash'
 
 const MaybeParty = () => {
   const { getParam } = useRouting()
   const id = getParam<string>('id')
-  // const id = '123'
 
   const { user: authUser, loading: authLoading } = useAuthGate()
-  // const { data: me, loading: meLoading } = useMe({ listen: true })
-  // const { data: me, error } = useDocument<Document<UserSchema>>(User.me.path, {
-  //   refreshInterval: 2000,
-  // })
+
   const { data: me, error } = useMe({
     listen: true,
-    // re
   })
   const meLoading = !me && !error
 
-  const iAmSubscribed = me?.subscribed_to?.uid === id
-  const iAmDj = id === authUser?.uid
+  const iAmSubscribed = me?.subscribed_to?.handle === id
+  // const iAmDj = id === authUser?.uid
+  const iAmDj = me?.handle === id
   const hasSpotify = !!(me && User.hasSpotifyAccountLinked(me))
 
-  if (authLoading) return <LoadingScreen />
+  if (authLoading || meLoading) return <LoadingScreen />
 
   if (!id) return <JoinParty />
 
   if (!authUser || (!iAmDj && !iAmSubscribed)) {
+    console.log('[Maybe-Party][no party found]', { me })
     return <PartySplash hasSpotify={hasSpotify} id={id} />
   }
 

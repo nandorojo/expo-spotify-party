@@ -33,6 +33,7 @@ function PhoneScreen<T extends { routeName: string }>() {
       }}
       onSmsSuccessfullySent={onSmsSuccessfullySent}
       containerStyle={styles.container}
+      renderHeader={null}
     />
   )
 }

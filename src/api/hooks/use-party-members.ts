@@ -1,27 +1,46 @@
 import { useFuego } from '@nandorojo/fuego'
 import { UserSchema } from '../../schema/user-schema'
-import { Document } from '@nandorojo/swr-firestore'
+import { Document, useCollection } from '@nandorojo/swr-firestore'
 import { User } from '../user'
 import { useMemo } from 'react'
 
 type Props = {
   /**
-   * The uid of the DJ, also the ID of the party.
+   * The handle of the DJ, also the ID of the party.
    */
-  uid: string
+  handle: string
 }
 
-export const usePartySubscribers = ({ uid }: Props) => {
-  const { data, ...response } = useFuego<Document<UserSchema>>(
+export const usePartySubscribers = ({ handle }: Props) => {
+  const { data,  ...response } = useFuego<Document<UserSchema>>(
     useMemo(
       () => ({
         path: User.collection,
-        where: ['subscribed_to.uid', '==', uid],
+        where: ['subscribed_to.handle', '==', handle],
         listen: true,
       }),
-      [uid]
+      [handle]
     )
   )
+  // console.log('[use-party-subscribers]', { data })
+  // const { data, error, ...response } = useCollection<Document<UserSchema>>(
+  //   User.collection,
+  //   {
+  //     where: ['subscribed_to.handle', '==', handle],
+  //   },
+  //   {
+  //     listen: true,
+  //   }
+  // )
+
+  // return {
+  //   // data: [],
+  //   // loading: false,
+  //   ...response,
+  //   data,
+  //   // loading: !data && !error,
+  //   loading,
+  // }
 
   return { data: data as (UserSchema & { id: string })[] | null, ...response }
 }

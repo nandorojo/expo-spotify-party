@@ -16,14 +16,14 @@ export const useJoinParty = ({ onJoinedSuccessfully }: Props) => {
     if (handle) {
       try {
         setLoading(true)
-        const { id, exists, handle: actualUserHandle } = await new Party({
+        const { exists, handle: actualUserHandle } = await new Party({
           handle,
         }).checkIfExists()
         if (exists) {
           if (user) {
             await new Party({ handle: actualUserHandle }).subscribe()
           }
-          onJoinedSuccessfully({ id })
+          onJoinedSuccessfully({ id: actualUserHandle })
         } else {
           setLoading(false)
           alert('Looks like that party does not exist.')

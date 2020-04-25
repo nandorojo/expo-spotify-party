@@ -28,8 +28,7 @@ const Btn = styled(Button)`
   margin-top: ${({ theme }: ThemeProps) => theme.spacing[2]}px;
 `
 
-const PartySplash = (props: Props) => {
-  const { id: redirectPartyId, hasSpotify } = props
+const PartySplash = ({ id: redirectPartyId, hasSpotify }: Props) => {
   const { user } = useAuthGate()
   const { navigate } = useRouting()
   const { subscribe, loading } = useSubscribeToParty()

@@ -12,7 +12,7 @@ export const useSubscribeToParty = () => {
       const { success, message, uid } = await new Party({ handle }).subscribe()
       if (!success) throw new Error(message)
       setStatus('success')
-      return { uid }
+      return { uid, handle }
     } catch (e) {
       console.error('useSubscribeToParty error ', e.message)
       setStatus('error')

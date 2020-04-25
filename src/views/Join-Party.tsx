@@ -2,14 +2,10 @@ import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 import { ThemeProps } from '../theme'
 import { Container } from '../components/Container'
-import { useAuthGate } from 'react-native-doorman'
 import ColorCard from '../components/Color-Card'
 import Button from '../components/Button'
-import { useSubscribeToParty } from '../api/hooks/use-subscribe-to-party'
-import LoadingScreen from './Loading-Screen'
 import { useRouting } from 'expo-next-react-navigation'
 import { NavigationRoutes } from '../navigation/routes'
-import { Party } from '../api/party'
 import Input from '../components/Input'
 import { useJoinParty } from '../api/hooks/use-join-party'
 
@@ -32,7 +28,6 @@ const TextInputContainer = styled.View`
 `
 
 const JoinParty = () => {
-  // const { loading } = useSubscribeToParty()
   const { navigate } = useRouting()
 
   const onJoinedSuccessfully = useCallback(
