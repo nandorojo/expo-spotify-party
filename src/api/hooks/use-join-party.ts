@@ -29,7 +29,7 @@ export const useJoinParty = ({ onJoinedSuccessfully }: Props) => {
           alert('Looks like that party does not exist.')
         }
       } catch (e) {
-        console.error('join party error')
+        console.error('join party error', { e })
       }
     }
   }, [handle, onJoinedSuccessfully, user])

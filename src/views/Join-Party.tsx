@@ -37,7 +37,11 @@ const JoinParty = () => {
 
   const onJoinedSuccessfully = useCallback(
     ({ id }: { id: string }) => {
-      navigate({ routeName: NavigationRoutes.party, params: { id } })
+      navigate({
+        routeName: NavigationRoutes.party,
+        params: { id },
+        key: `${NavigationRoutes.party}${id}`,
+      })
     },
     [navigate]
   )

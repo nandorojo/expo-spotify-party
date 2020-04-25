@@ -14,8 +14,6 @@ const httpsOptions = {
   cert: fs.readFileSync('./localhost.crt'),
 }
 
-console.log('seeerverrrr.js')
-
 app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url, true)
