@@ -7,10 +7,8 @@ import { User } from '../api/user'
 // @ts-ignore
 import Entypo from '@expo/vector-icons/Entypo'
 import { ThemeUi, ThemeProps } from '../theme'
-import { useTheme } from 'styled-components'
 import { Container } from '../components/Container'
 import styled from 'styled-components/native'
-import { Spotify } from '../api/spotify'
 import { NavigationRoutes } from '../navigation/routes'
 import { useRouting } from 'expo-next-react-navigation'
 import { Avatar } from 'react-native-elements'
@@ -22,13 +20,9 @@ const Card = styled.View`
 `
 
 const Account = () => {
-  const { data, error, isValidating } = useMe({
+  const { data, error } = useMe({
     listen: true,
   })
-  // console.log('[use-me]', { data: !!data })
-  useEffect(() => {
-    // console.log('[Account]', { isValidating, data: !!data })
-  }, [isValidating, data])
   const { navigate } = useRouting()
 
   const hasSpotify = User.hasSpotifyAccountLinked(data)
@@ -36,30 +30,50 @@ const Account = () => {
   const isInAParty = !!partySubscribedToId
   const isDJ = data?.is_dj
   const handle = data?.handle
+  const songName = data?.player?.name
 
   const renderSections = useCallback(() => {
     if (hasSpotify) {
       if (isInAParty) {
         return (
-          <ColorCard
-            text="🎧 You're in a party!"
-            description="Open it to see who else is listening."
-            marginBottom={2}
-            onPress={() =>
-              navigate({
-                routeName: NavigationRoutes.party,
-                params: { id: partySubscribedToId },
-              })
-            }
-          />
+          <>
+            <ColorCard
+              text={"🎧 You're in a party!"}
+              description="Open it to see who else is listening."
+              marginBottom={2}
+              onPress={() =>
+                navigate({
+                  routeName: NavigationRoutes.party,
+                  params: { id: partySubscribedToId },
+                })
+              }
+            />
+            <ColorCard
+              icon="ios-add-circle"
+              text="New Party"
+              color="secondary"
+              description="Become the DJ of a virtual Spotify party. Invite friends to listen to your songs in real-time."
+              marginBottom={2}
+              onPress={async () => {
+                const { success, handle } = await Party.create()
+                if (success) {
+                  navigate({
+                    routeName: NavigationRoutes.party,
+                    params: { id: handle },
+                  })
+                }
+              }}
+            />
+          </>
         )
       }
       if (isDJ) {
         return (
           <ColorCard
-            text="🎧 You're the DJ!"
+            text={songName ?? "You're the DJ!"}
             description="Open your party to invite friends and see who is listening."
             marginBottom={2}
+            icon={() => <Text style={{ fontSize: 30 }}>🎧</Text>}
             onPress={() => {
               if (!handle) {
                 return alert(
@@ -108,7 +122,15 @@ const Account = () => {
       )
     }
     return null
-  }, [handle, hasSpotify, isDJ, isInAParty, navigate, partySubscribedToId])
+  }, [
+    handle,
+    hasSpotify,
+    isDJ,
+    isInAParty,
+    navigate,
+    partySubscribedToId,
+    songName,
+  ])
 
   if (error) return <Text style={{ padding: 50 }}>Error 🚨</Text>
   if (!data) return <LoadingScreen />
@@ -150,7 +172,7 @@ const Account = () => {
                       key: NavigationRoutes.spotifyAuth,
                     })
                   }
-                : undefined
+                : () => navigate({ routeName: 'Apple Music' })
             }
             icon={
               hasSpotify

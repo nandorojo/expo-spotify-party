@@ -2,6 +2,13 @@ import React from 'react'
 import { AppProps } from 'next/app'
 // fix the setImmediate usage from react-native-reanimated
 import 'setimmediate'
+// @ts-ignore
+if (!global.setImmediate) global.setImmediate = setTimeout
+
+console.log('[_app.js]', {
+  setImmediateGlobal: global.setImmediate,
+  setImmediate,
+})
 
 import Providers from '../src/providers'
 import styled from 'styled-components/native'

@@ -5,6 +5,7 @@ import FuegoProvider from './fuego'
 import { ThemeProvider } from 'styled-components/native'
 import { ThemeUi } from '../theme'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 type Props = {
   children: ReactNode
@@ -16,7 +17,7 @@ const Providers = ({ children }: Props) => {
       <Doorman>
         <ThemeProvider theme={ThemeUi}>
           <ActionSheetProvider>
-            <>{children}</>
+            <SafeAreaProvider>{children}</SafeAreaProvider>
           </ActionSheetProvider>
         </ThemeProvider>
       </Doorman>

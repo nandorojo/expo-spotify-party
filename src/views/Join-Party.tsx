@@ -50,7 +50,9 @@ const JoinParty = () => {
       <Wrapper>
         <ColorCard
           text="Join a Spotify Party"
-          description="Enter the Party ID below. If you aren't sure, try the username of the DJ.\n\nIf someone invited you with a link, try opening it again."
+          description={`Enter the Party ID below. If you aren't sure, try the username of the DJ.
+          
+If someone invited you with a link, try opening it again.`}
           color="muted"
         />
         <TextInputContainer>

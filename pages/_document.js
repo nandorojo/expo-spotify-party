@@ -2,6 +2,10 @@
 // and https://github.com/expo/expo-cli/blob/master/packages/webpack-config/web-default/index.html
 import NextDocument, { Head, Main, NextScript } from 'next/document'
 import * as React from 'react'
+import 'setimmediate'
+
+// @ts-ignore
+if (!global.setImmediate) global.setImmediate = setTimeout
 
 import { AppRegistry } from 'react-native'
 

@@ -39,4 +39,13 @@ export type UserSchema = {
     images?: { height: number | null; width: number | null; url?: string }[]
   }
   is_dj?: boolean
+  player?: {
+    albumImages: { height: number | null; width: number | null; url?: string }[]
+    artist: string
+    duration_ms: number
+    name: string
+    progress_ms: number
+    timestamp: number
+    track_uri: string
+  }
 }

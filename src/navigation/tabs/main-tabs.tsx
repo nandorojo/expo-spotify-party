@@ -100,8 +100,8 @@ const useDeepLinking = () => {
       queryParams: { id?: string } | null
     ) => {
       console.log('[main-tabs][useDeepLinking][handle]', { path, queryParams })
-      if (path?.includes('party')) {
-        const id = path.split('party/')?.[1] ?? queryParams?.id
+      if (path?.includes('/party')) {
+        const id = path.split('/party/')?.[1] ?? queryParams?.id
         NavigationService.navigate(NavigationRoutes.party, {
           id,
         })

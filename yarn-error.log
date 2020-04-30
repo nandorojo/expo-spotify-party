@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add setImmediate
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add @nandorojo/swr-firstore@listen-key
 
 PATH: 
   /usr/local/opt/ruby/bin:/Users/Fernando/Library/Android/sdk/platform-tools:/Users/Fernando/Library/Android/sdk/platform-tools:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/Fernando/google-cloud-sdk/bin:/usr/local/opt/ruby/bin:/Users/Fernando/Library/Android/sdk/platform-tools:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/Fernando/.rvm/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/setImmediate: Not found
+  Error: https://registry.yarnpkg.com/@nandorojo%2fswr-firstore: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66987:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
       at Request.emit (events.js:210:5)
@@ -48,7 +48,7 @@ npm manifest:
       "@gorhom/animated-tabbar": "^1.0.0",
       "@nandorojo/bootstrap": "^0.0.5",
       "@nandorojo/fuego": "^0.0.25",
-      "@nandorojo/swr-firestore": "^0.1.1",
+      "@nandorojo/swr-firestore": "^0.2.1",
       "@react-native-community/masked-view": "0.1.6",
       "@react-navigation/bottom-tabs": "^5.2.7",
       "@react-navigation/native": "^5.1.6",
@@ -76,6 +76,7 @@ npm manifest:
       "react-native-safe-area-context": "0.7.3",
       "react-native-screens": "./src/packages/react-native-screens/react-native-screens-v2.2.0.tgz",
       "react-native-web": "~0.11.7",
+      "setimmediate": "^1.0.5",
       "styled-components": "^5.1.0",
       "styled-theming": "^2.2.0",
       "swr": "^0.2.0",
@@ -2219,10 +2220,10 @@ Lockfile:
       lodash "^4.17.4"
       prop-types "^15.5.10"
   
-  "@nandorojo/swr-firestore@^0.1.1":
-    version "0.1.1"
-    resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.1.1.tgz#eba340136f9c0b97c0f4ec948915319879b5dbcd"
-    integrity sha512-q3DMQbJ/bPo2RpIIFm5j4w87sYp+GobA+LbtYTjWlIj3XorxReJZL3BATaUU8wQeIQ3rAhoW5AdaVHKUIHa3bg==
+  "@nandorojo/swr-firestore@^0.2.1":
+    version "0.2.1"
+    resolved "https://registry.yarnpkg.com/@nandorojo/swr-firestore/-/swr-firestore-0.2.1.tgz#630289713472e1ffb3388a690c403a2de7b3a5df"
+    integrity sha512-Dh9tPcNj28BkJSZbxoLqvLZawXSZ3YQmF+3zyhiuOXEzfRR8SwCFuHhlirmRCDKVBlTwmXpboAYlRdmtJhw8tg==
     dependencies:
       swr "^0.2.0"
       use-memo-one "^1.1.1"
@@ -10532,13 +10533,6 @@ Lockfile:
   react-native-screens@./src/packages/react-native-screens/react-native-screens-v2.2.0.tgz:
     version "2.2.0"
     resolved "./src/packages/react-native-screens/react-native-screens-v2.2.0.tgz#56029781f9453168e4ec3b760d610ecd61d8bbf3"
-    dependencies:
-      debounce "^1.2.0"
-  
-  react-native-screens@~2.2.0:
-    version "2.2.0"
-    resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.2.0.tgz#cc4cdf17426fdda97ad93a5e812a1899390f1978"
-    integrity sha512-a0VzxOWot7F9B/GQyDSssBRd3jUJazFnTQS61IiyReWB6aHlFhf3Xz10jBRoURXy1EMCDCHgenmTVTkKHpKyqQ==
     dependencies:
       debounce "^1.2.0"
   

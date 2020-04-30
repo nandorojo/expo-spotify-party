@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import { useDoormanUser } from 'react-native-doorman'
-import { FlatList, Clipboard, Share } from 'react-native'
+import { FlatList, Clipboard, Share, Platform } from 'react-native'
 import { useGetParty } from '../api/hooks/use-get-party'
 import { usePartySubscribers } from '../api/hooks/use-party-members'
 import { UserSchema } from '../schema/user-schema'
 import { empty } from '../helpers/empty'
-import { ButtonGroup, Avatar } from 'react-native-elements'
+import { Avatar } from 'react-native-elements'
 import ColorCard from '../components/Color-Card'
 import { Container } from '../components/Container'
 import styled from 'styled-components/native'
@@ -131,9 +131,15 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
               variant="small"
               title="Share Party"
               onPress={() => {
-                const options = ['Copy URL', 'Share via...', 'Cancel']
+                const options = Platform.select({
+                  web: ['Copy URL', 'Cancel'],
+                  default: ['Copy URL', 'Share via...', 'Cancel'],
+                })
                 // const destructiveButtonIndex = 0;
-                const cancelButtonIndex = 2
+                const cancelButtonIndex = Platform.select({
+                  web: 1,
+                  default: 2,
+                })
                 showActionSheetWithOptions(
                   {
                     options,
@@ -142,7 +148,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
                   (index: number) => {
                     const url = PartyClass.shareUrl({ id })
                     if (index === 0) Clipboard.setString(url)
-                    else if (index === 1)
+                    else if (index === 1 && Platform.OS !== 'web')
                       Share.share(
                         {
                           url,
@@ -258,6 +264,7 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
           color="alert"
           text="Oops"
           description={
+            // @ts-ignore
             error?.message ??
             "Something went wrong, but we're not sure what yet. 😬 Can you try refreshing?"
           }

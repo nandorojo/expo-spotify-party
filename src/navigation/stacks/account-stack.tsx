@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack'
+import { Platform } from 'react-native'
 import { AuthStack } from './auth-stack'
 import { NavigationRoutes } from '../routes'
 import { ThemeUi } from '../../theme'
@@ -8,10 +9,13 @@ import { useAuthGate } from 'react-native-doorman'
 import SpotifyAuthStack from './spotify-auth-stack'
 import SignOutMobileOnly from '../../components/Sign-Out'
 import MaybeParty from '../../views/Maybe-Party'
+import AppleMusic from '../../views/Apple-Music'
+import { createStackNavigator } from '@react-navigation/stack'
 
 type AccountStackParams = {
   dashboard: undefined
   account: undefined
+  'Apple Music': undefined
   // confirmPhone?: {
   //   redirectPartyId?: string
   // }
@@ -33,12 +37,12 @@ type AccountStackParams = {
   }
 }
 
-// const create = Platform.select({
-//   web: createStackNavigator,
-//   default: createNativeStackNavigator,
-// })
+const create = Platform.select({
+  web: createStackNavigator,
+  default: createNativeStackNavigator,
+})
 
-const Stack = createNativeStackNavigator<AccountStackParams>()
+const Stack = create<AccountStackParams>()
 
 type Props = {
   initialRouteName?: keyof AccountStackParams
@@ -55,10 +59,18 @@ export function AccountStack({ initialRouteName }: Props) {
       screenOptions={{
         headerTintColor: ThemeUi.colors.text,
         headerStyle: { backgroundColor: ThemeUi.colors.background },
-        contentStyle: {
-          backgroundColor: ThemeUi.colors.background,
-          // flex: 1,
-        },
+        ...Platform.select({
+          default: {
+            contentStyle: {
+              backgroundColor: ThemeUi.colors.background,
+            },
+          },
+          web: {
+            cardStyle: {
+              backgroundColor: ThemeUi.colors.background,
+            },
+          },
+        }),
         // headerTranslucent: true,
       }}
       initialRouteName={initialRouteName}
@@ -99,6 +111,7 @@ export function AccountStack({ initialRouteName }: Props) {
         name={NavigationRoutes.party}
         component={MaybeParty}
       />
+      <Stack.Screen name={'Apple Music'} component={AppleMusic} />
       {/*
       <Stack.Screen
         options={({ route }) => ({
