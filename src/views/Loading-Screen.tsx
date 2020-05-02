@@ -2,6 +2,7 @@ import * as React from 'react'
 import { View, StyleSheet, Text, Platform } from 'react-native'
 import EmojiLoader from '../components/Emoji-Loader'
 import useTimeout from 'use-timeout'
+import { ThemeUi } from '../theme'
 
 type Props = {
   text?: string
@@ -25,7 +26,12 @@ const LoadingScreen = ({
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: ThemeUi.colors.background,
+  },
   text: {
     textAlign: 'center',
     marginTop: 20,

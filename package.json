@@ -13,6 +13,7 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
+    "@expo/html-elements": "^0.0.0-alpha.5",
     "@expo/match-media": "^0.0.0-alpha.5",
     "@expo/next-adapter": "^2.0.31",
     "@expo/react-native-action-sheet": "^3.6.0",
@@ -20,6 +21,7 @@
     "@nandorojo/bootstrap": "^0.0.5",
     "@nandorojo/fuego": "^0.0.25",
     "@nandorojo/swr-firestore": "^0.3.0",
+    "@react-native-community/hooks": "^2.5.1",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.2.7",
     "@react-navigation/native": "^5.1.6",
@@ -29,6 +31,7 @@
     "expo-auth-session": "./src/packages/expo-auth-session/expo-auth-session-v1.0.0.tgz",
     "expo-blur": "~8.1.0",
     "expo-next-react-navigation": "^1.1.6",
+    "expo-updates": "~0.1.2",
     "expo-web-browser": "^8.2.0",
     "firebase": "7.9.0",
     "next": "^9.3.5",
@@ -45,6 +48,7 @@
     "react-native-doorman": "^1.1.32",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-reanimated": "~1.7.0",
+    "react-native-redash": "^13.2.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "./src/packages/react-native-screens/react-native-screens-v2.2.0.tgz",
     "react-native-web": "~0.11.7",

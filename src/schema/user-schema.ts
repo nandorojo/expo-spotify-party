@@ -40,12 +40,20 @@ export type UserSchema = {
   }
   is_dj?: boolean
   player?: {
-    albumImages: { height: number | null; width: number | null; url?: string }[]
+    album_images?: {
+      height: number | null
+      width: number | null
+      url?: string
+    }[]
     artist: string
     duration_ms: number
     name: string
     progress_ms: number
     timestamp: number
     track_uri: string
+  }
+  device?: {
+    name?: string
+    volume_percent?: number
   }
 }

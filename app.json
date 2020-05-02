@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "spotify-party",
+    "name": "Spotify Party",
     "slug": "spotify-party",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#131313"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,7 +17,70 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.prettyinc.spotifyparty"
+      "bundleIdentifier": "com.prettyinc.spotifyparty",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": ["spotify"],
+        "UIBackgroundModes": ["fetch"]
+      },
+      "associatedDomains": [
+        "applinks:www.spotify-party.now.sh",
+        "applinks:spotify-party.now.sh",
+        "applinks:spotify-party.now.sh"
+      ]
+    },
+
+    "android": {
+      "package": "com.prettyinc.spotifyparty",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "*.spotify-party.now.sh",
+              "pathPrefix": "/party"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "*.spotifyparty.cool",
+              "pathPrefix": "/party"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "*.spotifyparty.cool",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "*.spotify-party.now.sh",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "scheme": "spotifyparty"
   }

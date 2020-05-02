@@ -10,12 +10,13 @@ import SpotifyAuthStack from './spotify-auth-stack'
 import SignOutMobileOnly from '../../components/Sign-Out'
 import MaybeParty from '../../views/Maybe-Party'
 import AppleMusic from '../../views/Apple-Music'
-import { createStackNavigator } from '@react-navigation/stack'
+import Sheet from '../../views/Sheet'
 
 type AccountStackParams = {
   dashboard: undefined
   account: undefined
   'Apple Music': undefined
+  Sheet: undefined
   // confirmPhone?: {
   //   redirectPartyId?: string
   // }
@@ -37,12 +38,12 @@ type AccountStackParams = {
   }
 }
 
-const create = Platform.select({
-  web: createStackNavigator,
-  default: createNativeStackNavigator,
-})
+// const create = Platform.select({
+//   web: createStackNavigator,
+//   default: createNativeStackNavigator,
+// })
 
-const Stack = create<AccountStackParams>()
+const Stack = createNativeStackNavigator<AccountStackParams>()
 
 type Props = {
   initialRouteName?: keyof AccountStackParams
@@ -112,6 +113,7 @@ export function AccountStack({ initialRouteName }: Props) {
         component={MaybeParty}
       />
       <Stack.Screen name={'Apple Music'} component={AppleMusic} />
+      <Stack.Screen name={'Sheet'} component={Sheet} />
       {/*
       <Stack.Screen
         options={({ route }) => ({

@@ -20,6 +20,7 @@ import { Row, Col } from '@nandorojo/bootstrap'
 import { Party as PartyClass } from '../api/party'
 import { useActionSheet } from '@expo/react-native-action-sheet'
 import { fuego } from '../api/fuego'
+import Sheet from './Sheet'
 
 type Props = {
   id: string
@@ -301,23 +302,37 @@ Think that's a mistake? Try searching for the party again.`}
   }
 
   return (
-    <Wrapper>
-      <FlatList
-        data={subscribers ?? empty.array}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        ListHeaderComponent={ListHeaderComponent}
-        ListEmptyComponent={
-          subscribersLoading ? (
-            <LoadingScreen />
-          ) : (
-            <Empty>No one is listening yet...</Empty>
-          )
-        }
-        ListFooterComponent={ListFooterComponent}
-        // contentContainerStyle={styles.list}
-      />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <FlatList
+          data={subscribers ?? empty.array}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          ListHeaderComponent={ListHeaderComponent}
+          ListEmptyComponent={
+            subscribersLoading ? (
+              <LoadingScreen />
+            ) : (
+              <Empty>No one is listening yet...</Empty>
+            )
+          }
+          ListFooterComponent={ListFooterComponent}
+          contentContainerStyle={{ flex: 1 }}
+          style={{ flex: 1 }}
+        />
+      </Wrapper>
+      {!!dj?.player && !!dj.player.album_images?.[0].url && (
+        <Sheet
+          title={dj.player.name}
+          artist={dj.player.artist}
+          artworkUrl={dj.player.album_images[0].url}
+          duration_ms={dj.player.duration_ms}
+          progress_ms={dj.player.progress_ms}
+          track_uri={dj.player.track_uri}
+          device_name={dj.device?.name}
+        />
+      )}
+    </>
   )
 }
 

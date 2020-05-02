@@ -38,9 +38,16 @@ const Account = () => {
         return (
           <>
             <ColorCard
-              text={"🎧 You're in a party!"}
-              description="Open it to see who else is listening."
+              text={songName ?? "You're in a party!"}
+              description={
+                songName
+                  ? "You're in a party. Open it to see who's listening."
+                  : 'Open it to see who else is listening.'
+              }
               marginBottom={2}
+              icon={() => (
+                <Text style={{ fontSize: ThemeUi.fontSizes[2] }}>🎧</Text>
+              )}
               onPress={() =>
                 navigate({
                   routeName: NavigationRoutes.party,
@@ -69,23 +76,38 @@ const Account = () => {
       }
       if (isDJ) {
         return (
-          <ColorCard
-            text={songName ?? "You're the DJ!"}
-            description="Open your party to invite friends and see who is listening."
-            marginBottom={2}
-            icon={() => <Text style={{ fontSize: 30 }}>🎧</Text>}
-            onPress={() => {
-              if (!handle) {
-                return alert(
-                  'You need to set a username before you can start a party.'
-                )
+          <>
+            <ColorCard
+              text={songName ?? "You're the DJ!"}
+              description="Open your party to invite friends and see who is listening."
+              marginBottom={2}
+              icon={() => <Text style={{ fontSize: 30 }}>🎧</Text>}
+              onPress={() => {
+                if (!handle) {
+                  return alert(
+                    'You need to set a username before you can start a party.'
+                  )
+                }
+                navigate({
+                  routeName: NavigationRoutes.party,
+                  params: { id: handle },
+                })
+              }}
+            />
+
+            <ColorCard
+              color="secondary"
+              icon="ios-musical-note"
+              text="Join Party"
+              description="If your friend already started a party, you can listen to their songs in real-time."
+              marginBottom={2}
+              onPress={() =>
+                navigate({
+                  routeName: NavigationRoutes.party,
+                })
               }
-              navigate({
-                routeName: NavigationRoutes.party,
-                params: { id: handle },
-              })
-            }}
-          />
+            />
+          </>
         )
       }
       return (
@@ -172,7 +194,7 @@ const Account = () => {
                       key: NavigationRoutes.spotifyAuth,
                     })
                   }
-                : () => navigate({ routeName: 'Apple Music' })
+                : undefined
             }
             icon={
               hasSpotify

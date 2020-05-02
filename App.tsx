@@ -3,16 +3,18 @@ import * as React from 'react'
 import { enableScreens } from 'react-native-screens'
 import Providers from './src/providers'
 import Navigator from './src/navigation'
+import { withOta } from './src/hoc/with-ota'
+
 import '@expo/match-media'
-import { Platform } from 'react-native'
-import AppleMusic from './src/views/Apple-Music'
 
 enableScreens()
 
-export default function App() {
+function App() {
   return (
     <Providers>
-      {Platform.OS === 'web' ? <AppleMusic /> : <Navigator />}
+      <Navigator />
     </Providers>
   )
 }
+
+export default withOta(App)
