@@ -1,6 +1,6 @@
 # 🎸 Spotify Party
 
-- 🎹   Listen to Spotify with your friends in real-time. Start playing songs, invite your friends, and they get to hear whatever you play. Great for virtual quarantine parties.
+Listen to Spotify with your friends in real-time. Start playing songs, invite your friends, and they get to hear whatever you play.
 
 - 📱 Works on iOS, Android, and web.
 
