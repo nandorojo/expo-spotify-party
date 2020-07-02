@@ -67,28 +67,6 @@ const Party = ({ id, iAmDj, iAmSubscribed }: Props) => {
     data: subscribers,
     loading: subscribersLoading,
   } = usePartySubscribers({ handle: id })
-  useEffect(() => {
-    console.log('[uid]', fuego.auth().currentUser.uid)
-    // fuego.db
-    //   .collection('users')
-    //   .where('handle', '==', 'fernando')
-    //   .get()
-    // fuego.db
-    //   .collection('users')
-    //   .where('handle', '==', 'GT3PYNaFc0S1DWRLSjF2MdvglwV2')
-    //   .get()
-    // fuego.db
-    //   .collection('users')
-    //   .where('subscribed_to.handle', '==', 'fernando')
-    //   .get()
-    //   .then(docs => {
-    //     console.log('[subscribed_to.handle] resolved!', { empty: docs.empty })
-    //     docs.forEach(doc =>
-    //       console.log('[subscribed_to.handle]: ', doc.data().handle)
-    //     )
-    //   })
-  }, [])
-  // return null
   const djLoading = !dj && !error
 
   const { navigate, replace } = useRouting()
