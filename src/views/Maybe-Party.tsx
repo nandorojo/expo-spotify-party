@@ -38,7 +38,6 @@ const MaybeParty = () => {
   if (!id) return <JoinParty />
 
   if (!authUser || (!iAmDj && !iAmSubscribed)) {
-    console.log('[Maybe-Party][no party found]', { me })
     return <PartySplash hasSpotify={hasSpotify} id={id} />
   }
 
