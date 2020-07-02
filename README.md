@@ -14,7 +14,7 @@ You can check out the code. It's not super polished, but hey, it works.
 
 # Run the app
 
-It's currently running at [https://spotify-party.now.sh].
+It's currently running at https://spotify-party.now.sh.
 
 You can also run it locally. Just clone this repo.
 
