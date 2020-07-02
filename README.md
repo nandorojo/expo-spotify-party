@@ -1,14 +1,14 @@
 # 🎸 Spotify Party
 
-🎹  Listen to Spotify with your friends in real-time. Start playing songs, invite your friends, and they get to hear whatever you play. Great for virtual quarantine parties.
+- 🎹   Listen to Spotify with your friends in real-time. Start playing songs, invite your friends, and they get to hear whatever you play. Great for virtual quarantine parties.
 
-📱 Works on iOS, Android, and web.
+- 📱 Works on iOS, Android, and web.
 
-🤖 Built with Expo Web + Next.js.
+- 🤖 Built with Expo Web + Next.js.
 
-🚪 Uses **Doorman** for Firebase phone sign-in.
+- 🚪 Uses **Doorman** for Firebase phone sign-in.
 
-🎵 Spotify login.
+- 🎵 Spotify login.
 
 You can check out the code. It's not super polished, but hey, it works.
 
