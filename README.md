@@ -18,6 +18,10 @@ It's currently running at https://spotify-party.now.sh.
 
 You can also run it locally. Just clone this repo.
 
+```sh
+git clone https://github.com/nandorojo/expo-spotify-party
+```
+
 Next, run: 
 
 ```sh
