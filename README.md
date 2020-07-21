@@ -26,6 +26,7 @@ Next, run:
 
 ```sh
 yarn
+yarn add expo-auth-session
 ```
 
 Then, follow the instructions to run it on web or mobile:
@@ -36,8 +37,7 @@ Then, follow the instructions to run it on web or mobile:
 npm i -g expo-cli
 expo start
 ```
-
-If you get errors, try installing `expo-web-browser` and `expo-auth-session`. This was made before those were updated and used custom versions of them.
+ 
 
 ## Web
 ```
