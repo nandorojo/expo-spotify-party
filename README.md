@@ -37,6 +37,8 @@ npm i -g expo-cli
 expo start
 ```
 
+If you get errors, try installing `expo-web-browser` and `expo-auth-session`. This was made before those were updated and used custom versions of them.
+
 ## Web
 ```
 yarn next
