@@ -46,6 +46,6 @@ yarn next
 
 # Notes
 
-If you look through the code, you'll notice many blocks that are commented out. That's the product of figuring out Next.js + Expo for a side project. 🦥
+If you look through the code, you'll notice many blocks that are commented out. That's the product of figuring out Next.js + Expo for a side project. It was also my first time using `styled-components`, so there is some TypeScript jumbling there. 🦥
 
 Twitter: [@fernandotherojo](https://twitter.com/fernandotherojo)
