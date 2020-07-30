@@ -14,8 +14,6 @@ You can check out the code. It's not super polished, but hey, it works.
 
 # Run the app
 
-If you look through the code, you'll notice many commented out code. That's the product of figuring out Next.js + Expo for a side project.
-
 It's currently running at https://spotify-party.now.sh.
 
 You can also run it locally. Just clone this repo.
@@ -45,3 +43,9 @@ expo start
 ```
 yarn next
 ```
+
+# Notes
+
+If you look through the code, you'll notice many blocks that are commented out. That's the product of figuring out Next.js + Expo for a side project. 🦥
+
+Twitter: [@fernandotherojo](https://twitter.com/fernandotherojo)
